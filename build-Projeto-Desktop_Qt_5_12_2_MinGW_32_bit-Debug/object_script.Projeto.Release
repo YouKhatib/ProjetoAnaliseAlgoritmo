@@ -1,0 +1,11 @@
+release/main.o
+release/mainwindow.o
+release/janelaprincipal.o
+release/quartos.o
+release/cardapio.o
+release/registro.o
+release/moc_mainwindow.o
+release/moc_janelaprincipal.o
+release/moc_quartos.o
+release/moc_cardapio.o
+release/moc_registro.o
