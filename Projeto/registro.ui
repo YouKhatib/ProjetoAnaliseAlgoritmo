@@ -138,7 +138,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Cancelar</string>
+    <string>Voltar</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_2">

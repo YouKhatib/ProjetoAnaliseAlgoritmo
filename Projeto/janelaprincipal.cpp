@@ -4,6 +4,7 @@
 #include "quartos.h"
 #include "cardapio.h"
 
+
 JanelaPrincipal::JanelaPrincipal(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::JanelaPrincipal)
