@@ -1,0 +1,11 @@
+debug/main.o
+debug/mainwindow.o
+debug/janelaprincipal.o
+debug/quartos.o
+debug/cardapio.o
+debug/registro.o
+debug/moc_mainwindow.o
+debug/moc_janelaprincipal.o
+debug/moc_quartos.o
+debug/moc_cardapio.o
+debug/moc_registro.o
