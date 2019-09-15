@@ -34,22 +34,22 @@ void pancakeSort(int v[], int n){
 
 }
 
-void imprimeVetor(int *v, int n){
+void imprimeVetor(int v[], int n){
     for (int i = 0; i < n; ++i)
         cout << v[i] << " ";
     cout << endl;
 }
 
 int main(){
-    int arr[] = {23, 10, 20, 11, 12, 6, 7};
-    int n = sizeof(arr)/sizeof(arr[0]);
+    int v[] = {23, 10, 20, 11, 12, 6, 7};
+    int n = sizeof(v)/sizeof(v[0]);
 
     cout<<"O Vetor antes da ordenação "<<endl;
-    imprimeVetor(arr, n);
+    imprimeVetor(v, n);
 
     cout<<"O Vetor após a ordenação "<<endl;
-    pancakeSort(arr, n);
-    imprimeVetor(arr, n);
+    pancakeSort(v, n);
+    imprimeVetor(v, n);
 
     return 0;
 }
