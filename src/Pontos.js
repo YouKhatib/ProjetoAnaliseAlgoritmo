@@ -9,8 +9,6 @@ export default class Ponto extends React.Component{
         var arrayY = [];
         var arrayCopiaX = [];
         var arrayCopiaY = [];
-        var gapX;
-        var gapY;
     }
 
     setArrayX(a){
@@ -34,61 +32,29 @@ export default class Ponto extends React.Component{
         this.arrayCopiaX = [];
     }
 
-    getArrayX(){
-        return(this.arrayX);
-    }
-    getArrayY(){
-        return(this.arrayY);
-    }
     getArrayX(i){
         return(this.arrayX[i]);
     }
     getArrayY(i){
         return(this.arrayY[i]);
     }
-    getArrayCopiaX(i){
+    getValCopiaX(i){
         return(this.arrayCopiaX[i]);
     }
-    getArrayCopiaX(){
-        return(this.arrayCopiaX);
+    getArrayCopiaXTam(){
+        return(this.arrayCopiaX.length);
     }
-    getArrayCopiaY(){
-        return(this.arrayCopiaX);
+    getArrayCopiaYTam(){
+        return(this.arrayCopiaY.length);
     }
-    getArrayCopiaY(i){
+    getValCopiaY(i){
         return(this.arrayCopiaY[i]);
-    }
-    setGapX(i){
-        this.gapX = i;
-    }
-    setGapY(i){
-        this.gapY = i;
     }
     getArrayXTam(){
         return(this.arrayX.length);
     }
     getArrayYTam(){
         return(this.arrayY.length);
-    }
-    getGapX(){
-        return(this.gapX);
-    }
-    getGapY(){
-        return(this.gapY);
-    }
-    checaOrdenacao(){
-        let contUm = this.getArrayCopiaX().length; 
-        let contDois = 0;
-        for(var i = 0; i < this.arrayCopiaX.length; i++){
-            if(this.getArrayX(i) == this.getArrayCopiaX(i) && this.getArrayY(i) == this.getArrayCopiaY(i)){
-                contDois++;
-            }
-        }
-        if(contUm == contDois){
-            return true;
-        }
-        else
-            return false;
     }
     setArrayCopiaOrdenado(){
         for(var i = 0; i < this.arrayX.length; i++){

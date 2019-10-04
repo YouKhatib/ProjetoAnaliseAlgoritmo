@@ -3,28 +3,38 @@ import logo from './logo.svg';
 import './App.css';
 import Ponto from './Pontos.js';
 
-var arrayX = [];
-var arrayY = [];
-var arrayCopiaX = [];
-var arrayCopiaY = [];
 var ctx;
 var contUm = 0;
 var flag = true;
 var refreshIntervalId;
-export default class Canvas extends Ponto{
+var ponto = new Ponto();
+var cntd;
+export default class Canvas extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             arrayX: [],
             arrayY: [],
+            
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+    
+      handleSubmit(event) {
+        cntd = parseInt(this.state.value);
+        event.preventDefault();
+      }
+    
+
     componentWillMount(){
         this.setState({
             canvasSize: {canvasWidth: 200, canvasHeight: 200}
         })
     }
-
 
     componentDidMount(){
         ctx = this.canvasAnim.getContext("2d");
@@ -37,10 +47,8 @@ export default class Canvas extends Ponto{
     }
 
     comeca(){
-        arrayX = [];//zerando o vetor caso clique novamente no botão iniciar;
-        arrayY = [];//zerando o vetor caso clique novamente no botão iniciar;
-        arrayCopiaX = [];//zerando o vetor de cópia caso clique novamente no botão iniciar;
-        arrayCopiaY = [];//zerando o vetor de cópia caso clique novamente no botão iniciar;
+        ponto.zeraArrays();
+        ponto.zeraArraysCopia();
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();
@@ -54,48 +62,43 @@ export default class Canvas extends Ponto{
     }
 
     inicializa(){
-        for(var j = 0; j < 50; j++){
+        for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
             let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
-            arrayX.push(x);
-            arrayY.push(y);
+            ponto.setArrayX(x);
+            ponto.setArrayY(y);
             ctx.beginPath();
             ctx.arc(x, y, 1, 0, 2 * Math.PI, true);
             ctx.stroke();
         }
-        for(var i = 0; i < arrayX.length; i++){
-            arrayCopiaX.push(arrayX[i]);
-            arrayCopiaY.push(arrayY[i]);
-            contUm++;
-        }
-        arrayCopiaX.sort(function(a, b){return a-b});//ordenando e transformando em int para realizar a checagem
-        arrayCopiaY.sort(function(a, b){return a-b});//ordenando e transformando em int para realizar a checagem
+        ponto.setArrayCopiaOrdenado();
+        contUm = ponto.getArrayXTam();
     }
 
     bubbleSort(){
         ctx.clearRect(0, 0, 200, 200);
-        for (let j = 0; j < arrayX.length; j++) {
-            if (arrayX[j] > arrayX[j + 1]) {
-                let tmpX = arrayX[j];
-                arrayX[j] = arrayX[j + 1];
-                arrayX[j + 1] = tmpX; 
+        for (let j = 0; j < ponto.getArrayXTam(); j++) {
+            if (ponto.getArrayX(j) > ponto.getArrayX(j+1)) {
+                let tmpX = ponto.getArrayX(j);
+                ponto.alteraValorX(ponto.getArrayX(j+1), j);
+                ponto.alteraValorX(tmpX, j+1); 
             }
-            if (arrayY[j] > arrayY[j + 1]) {
-                let tmpY = arrayY[j];
-                arrayY[j] = arrayY[j + 1];
-                arrayY[j + 1] = tmpY; 
+            if (ponto.getArrayY(j) > ponto.getArrayY(j+1)) {
+                let tmpY = ponto.getArrayY(j);
+                ponto.alteraValorY(ponto.getArrayY(j+1), j);
+                ponto.alteraValorY(tmpY, j+1);
             }
         }
-        for(var m = 0; m < arrayX.length; m++){
+        for(var m = 0; m < ponto.getArrayXTam(); m++){
             ctx.beginPath();
-            ctx.moveTo(arrayX[m],arrayY[m]);
-            ctx.lineTo(arrayX[m],200);
+            ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
+            ctx.lineTo(ponto.getArrayX(m),200);
             ctx.stroke();  
         }
         var contDois = 0;
-        for(var i = 0; i < arrayCopiaX.length; i++){
-            if(arrayX[i] == arrayCopiaX[i] && arrayY[i] == arrayCopiaY[i]){
-                contDois++;
+        for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
+            if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
+                contDois++; 
             }
         }
         if(contUm == contDois){
@@ -106,6 +109,12 @@ export default class Canvas extends Ponto{
     render(){
         return(
             <div>
+                <form id='input' onSubmit={this.handleSubmit}>
+                <label>
+                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+                </form>
                 <button id='buttonInicia' onClick = {start}>Iniciar</button>
                 <button id='buttonPara' onClick = {para}>Parar</button>
                 <button id='buttonCont' onClick = {keep}>Continuar</button>
@@ -114,6 +123,7 @@ export default class Canvas extends Ponto{
         )
     }
 }
+
 var cd = new Canvas();
 function start() {
     clearInterval(refreshIntervalId);
@@ -130,4 +140,3 @@ function keep(){
        flag = true;
     }
 }
-
