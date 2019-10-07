@@ -38,13 +38,14 @@ export default class CanvasDois extends Ponto{
     }
 
     comeca(){
+        var cntd = localStorage.getItem('Cntd');
         arrayX = [];//zerando o vetor caso clique novamente no botão iniciar;
         arrayY = [];//zerando o vetor caso clique novamente no botão iniciar;
         arrayCopiaX = [];//zerando o vetor de cópia caso clique novamente no botão iniciar;
         arrayCopiaY = [];//zerando o vetor de cópia caso clique novamente no botão iniciar;
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);
-        this.inicializa();
+        this.inicializa(cntd);
         this.combSort();
         refreshIntervalId = setInterval(this.combSort,150);
     }
@@ -52,8 +53,8 @@ export default class CanvasDois extends Ponto{
         this.combSort();
         refreshIntervalId = setInterval(this.combSort,150);
     }
-    inicializa(){
-        for(var j = 0; j < 50; j++){
+    inicializa(cntd){
+        for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
             let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
             arrayX.push(x);

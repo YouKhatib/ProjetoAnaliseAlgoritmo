@@ -83,12 +83,6 @@ export default class Canvas extends React.Component{
     render(){
         return(
             <div>
-                <form id='input' onSubmit={this.handleSubmit}>
-                <label>
-                <input type="text" value={this.state.value} onChange={this.handleChange} />
-                </label>
-                <input type="submit" value="Submit" />
-                </form>
                 <button id='buttonInicia' onClick = {start}>Iniciar</button>
                 <button id='buttonPara' onClick = {para}>Parar</button>
                 <button id='buttonCont' onClick = {keep}>Continuar</button>

@@ -26,6 +26,7 @@ export default class Canvas extends React.Component{
     
       handleSubmit(event) {
         cntd = parseInt(this.state.value);
+        localStorage.setItem('Cntd', cntd);
         event.preventDefault();
       }
     
