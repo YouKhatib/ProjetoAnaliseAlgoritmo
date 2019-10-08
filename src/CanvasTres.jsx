@@ -78,15 +78,16 @@ export default class CanvasTres extends React.Component{
     selectionSort(){
         ctx.clearRect(0, 0, 200, 200);
 
+
     }
 
     render(){
         return(
             <div>
-                <button  onClick = {start}>Iniciar</button>
-                <button  onClick = {para}>Parar</button>
-                <button  onClick = {keep}>Continuar</button>
-                <canvas  ref={ canvasAnim => this.canvasAnim = canvasAnim}> </canvas>
+                <button id = 'iniciaTres' onClick = {start}>Iniciar</button>
+                <button id = 'paraTres' onClick = {para}>Parar</button>
+                <button id = 'continuaTres' onClick = {keep}>Continuar</button>
+                <canvas  id = 'canvasTres' ref={ canvasAnim => this.canvasAnim = canvasAnim}> </canvas>
             </div>
         )
     }

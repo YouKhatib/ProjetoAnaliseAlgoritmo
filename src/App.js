@@ -12,6 +12,7 @@ function App() {
     <div className="App">
         <Canvas />
         <CanvasDois />
+        <CanvasTres />
     </div>
   );
 }

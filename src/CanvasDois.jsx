@@ -2,10 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Ponto from './Pontos.js';
-import Canvas from './Canvas.jsx';
-import cntd from './Canvas.jsx';
 
-var arrayX = [];
 var contUm = 0;
 var ctx;
 var refreshIntervalId;
