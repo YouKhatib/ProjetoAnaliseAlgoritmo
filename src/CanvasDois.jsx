@@ -6,14 +6,12 @@ import Canvas from './Canvas.jsx';
 import cntd from './Canvas.jsx';
 
 var arrayX = [];
-var arrayY = [];
-var arrayCopiaX = [];
-var arrayCopiaY = [];
 var contUm = 0;
 var ctx;
 var refreshIntervalId;
+var ponto = new Ponto();
 var flag;
-var gapX, gapY;
+var gap;
 export default class CanvasDois extends Ponto{
     constructor(props){
         super(props)
@@ -38,14 +36,11 @@ export default class CanvasDois extends Ponto{
     }
 
     comeca(){
-        var cntd = localStorage.getItem('Cntd');
-        arrayX = [];//zerando o vetor caso clique novamente no botão iniciar;
-        arrayY = [];//zerando o vetor caso clique novamente no botão iniciar;
-        arrayCopiaX = [];//zerando o vetor de cópia caso clique novamente no botão iniciar;
-        arrayCopiaY = [];//zerando o vetor de cópia caso clique novamente no botão iniciar;
+        ponto.zeraArrays();
+        ponto.zeraArraysCopia();
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);
-        this.inicializa(cntd);
+        this.inicializa();
         this.combSort();
         refreshIntervalId = setInterval(this.combSort,150);
     }
@@ -53,65 +48,61 @@ export default class CanvasDois extends Ponto{
         this.combSort();
         refreshIntervalId = setInterval(this.combSort,150);
     }
-    inicializa(cntd){
+    inicializa(){
+        var cntd = localStorage.getItem('Cntd');
         for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
             let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
-            arrayX.push(x);
-            arrayY.push(y);
+            ponto.setArrayX(x);
+            ponto.setArrayY(y);
             ctx.beginPath();
-            ctx.arc(x, y, 1, 0, 2 * Math.PI, true);
+            ctx.moveTo(x,y);
+            ctx.lineTo(x,200);
             ctx.stroke();
         }
-        for(var i = 0; i < arrayX.length; i++){
-            arrayCopiaX.push(arrayX[i]);
-            arrayCopiaY.push(arrayY[i]);
-            contUm++;
-        }
-        arrayCopiaX.sort(function(a, b){return a-b});//ordenando e transformando em int para realizar a checagem
-        arrayCopiaY.sort(function(a, b){return a-b});//ordenando e transformando em int para realizar a checagem
+        ponto.setArrayCopiaOrdenado();
+        contUm = ponto.getArrayXTam();
         
-        gapX = arrayX.length; 
-        gapY = arrayY.length; 
+        gap = ponto.getArrayXTam(); 
+        console.log(gap);
     }
     combSort(){ 
             ctx.clearRect(0, 0, 200, 200); 
-            if(gapX <= 1){
-                gapX = 1;
+            if(gap <= 1){
+                gap = 1;
             }
-            if(gapY <= 1){
+            console.log(gap);
+            /*if(gapY <= 1){
                 gapY = 1;
-            }
-            for (let i=0; i < arrayX.length-gapX; i++){ 
-                if (arrayX[i] > arrayX[i+gapX]){ 
-                    let temp = arrayX[i];
-                    arrayX[i] = arrayX[i+gapX];
-                    arrayX[i+gapX] = temp; 
+            }*/
+            for (let i=0; i < ponto.getArrayXTam() - gap; i++){ 
+                if (ponto.getArrayX(i)> ponto.getArrayX(i + gap)){ 
+                    let temp =ponto.getArrayX(i);
+                    ponto.alteraValorX(ponto.getArrayX(i+gap), i);
+                    ponto.alteraValorX(temp, i+gap)
                 } 
-                if (arrayY[i] > arrayY[i+gapY]){ 
-                    let temp = arrayY[i];
-                    arrayY[i] = arrayY[i+gapY];
-                    arrayY[i+gapY] = temp;  
+                if (ponto.getArrayY(i)> ponto.getArrayY(i + gap)){ 
+                    let temp =ponto.getArrayY(i);
+                    ponto.alteraValorY(ponto.getArrayY(i+gap), i); //arrayX[i] = arrayX[i+gapX];
+                    ponto.alteraValorY(temp, i+gap) //arrayX[i+gapX] = temp;   
                 } 
             }
-            gapX = gapX/1.3; 
-            gapY = gapY/1.3;
-            for(let m = 0; m < arrayX.length; m++){
-                console.log("a")
+            gap = gap/1.3; 
+            for(var m = 0; m < ponto.getArrayXTam(); m++){
                 ctx.beginPath();
-                ctx.moveTo(arrayX[m],arrayY[m]);
-                ctx.lineTo(arrayX[m],200);
+                ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
+                ctx.lineTo(ponto.getArrayX(m),200);
                 ctx.stroke();  
             }
             var contDois = 0;
-            for(let i = 0; i < arrayCopiaX.length; i++){
-                if(arrayX[i] == arrayCopiaX[i] && arrayY[i] == arrayCopiaY[i]){
-                    contDois++;
+            for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
+                if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
+                    contDois++; 
                 }
             }
             if(contUm == contDois){
                 clearInterval(refreshIntervalId);
-            }  
+            }
     }
     render(){
         return(
