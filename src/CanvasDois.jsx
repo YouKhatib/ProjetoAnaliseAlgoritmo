@@ -64,30 +64,25 @@ export default class CanvasDois extends Ponto{
         contUm = ponto.getArrayXTam();
         
         gap = ponto.getArrayXTam(); 
-        console.log(gap);
     }
     combSort(){ 
             ctx.clearRect(0, 0, 200, 200); 
             if(gap <= 1){
                 gap = 1;
             }
-            console.log(gap);
-            /*if(gapY <= 1){
-                gapY = 1;
-            }*/
             for (let i=0; i < ponto.getArrayXTam() - gap; i++){ 
-                if (ponto.getArrayX(i)> ponto.getArrayX(i + gap)){ 
+                if (ponto.getArrayX(i)> ponto.getArrayX(gap + i)){ 
                     let temp =ponto.getArrayX(i);
-                    ponto.alteraValorX(ponto.getArrayX(i+gap), i);
-                    ponto.alteraValorX(temp, i+gap)
+                    ponto.alteraValorX(ponto.getArrayX(gap + i), i);
+                    ponto.alteraValorX(temp, gap + i)
                 } 
-                if (ponto.getArrayY(i)> ponto.getArrayY(i + gap)){ 
+                if (ponto.getArrayY(i) > ponto.getArrayY(gap + i)){ 
                     let temp =ponto.getArrayY(i);
-                    ponto.alteraValorY(ponto.getArrayY(i+gap), i); //arrayX[i] = arrayX[i+gapX];
-                    ponto.alteraValorY(temp, i+gap) //arrayX[i+gapX] = temp;   
+                    ponto.alteraValorY(ponto.getArrayY(gap + i), i); //arrayX[i] = arrayX[i+gapX];
+                    ponto.alteraValorY(temp, gap + i) //arrayX[i+gapX] = temp;   
                 } 
             }
-            gap = gap/1.3; 
+            gap = Math.floor(gap/1.3); 
             for(var m = 0; m < ponto.getArrayXTam(); m++){
                 ctx.beginPath();
                 ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));

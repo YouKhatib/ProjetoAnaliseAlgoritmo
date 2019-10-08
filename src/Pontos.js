@@ -31,7 +31,6 @@ export default class Ponto extends React.Component{
         this.arrayCopiaY = [];
         this.arrayCopiaX = [];
     }
-
     getArrayX(i){
         return(this.arrayX[i]);
     }

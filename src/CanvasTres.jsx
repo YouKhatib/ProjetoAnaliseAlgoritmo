@@ -9,7 +9,7 @@ var flag = true;
 var refreshIntervalId;
 var ponto = new Ponto();
 var cntd;
-export default class Canvas extends React.Component{
+export default class CanvasTres extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -83,16 +83,16 @@ export default class Canvas extends React.Component{
     render(){
         return(
             <div>
-                <button id='buttonInicia' onClick = {start}>Iniciar</button>
-                <button id='buttonPara' onClick = {para}>Parar</button>
-                <button id='buttonCont' onClick = {keep}>Continuar</button>
-                <canvas id='Canvas' ref={ canvasAnim => this.canvasAnim = canvasAnim}> </canvas>
+                <button  onClick = {start}>Iniciar</button>
+                <button  onClick = {para}>Parar</button>
+                <button  onClick = {keep}>Continuar</button>
+                <canvas  ref={ canvasAnim => this.canvasAnim = canvasAnim}> </canvas>
             </div>
         )
     }
 }
 
-var cd = new Canvas();
+var cd = new CanvasTres();
 function start() {
     clearInterval(refreshIntervalId);
     cd.comeca();
