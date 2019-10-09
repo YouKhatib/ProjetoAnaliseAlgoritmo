@@ -1,0 +1,156 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+#buttonCont {
+  position:absolute;
+  padding: 1px 2px;
+  left:53.7%;
+  top:0.4%
+}
+#buttonPara {
+  position:absolute;
+  padding: 1px 10px;
+  left:49.7%;
+  top:0.4%
+}
+#input {
+  position:absolute;
+  left:0;
+  top:0.4%
+}
+#buttonInicia {
+  position:absolute;
+  padding: 1px 10px;
+  left:45.5%;
+  top:0.4%
+  
+}
+#Canvas {
+  position:absolute;
+  left:45%;
+  top:5%
+
+}
+#buttonContDois {
+  position:absolute;
+  padding: 1px 2px;
+  left:68.7%;
+  top:0.4%
+
+}
+#buttonParaDois {
+  position:absolute;
+  padding: 1px 10px;
+  left:64.7%;
+  top:0.4%
+
+}
+#buttonIniciaDois {
+  position:absolute;
+  padding: 1px 10px;
+  left:60.7%;
+  top:0.4%
+
+}
+
+#CanvasDois{
+  position:absolute;
+  left:60%;
+  top:5%
+
+}
+
+#input{
+  position: absolute;
+  left: 5%;
+  top: 3%;
+
+}
+
+#inputButton{
+  position: absolute;
+  left: 39.5%;
+  top: 3%;
+
+}
+
+#canvasTres{
+  position:absolute;
+  left:75%;
+  top:5%
+
+}
+
+#iniciaTres{
+  position:absolute;
+  padding: 1px 10px;
+  left:75.5%;
+  top:0.4%
+
+}
+
+#paraTres{
+  position:absolute;
+  padding: 1px 10px;
+  left:79.7%;
+  top:0.4%
+
+}
+
+#continuaTres{
+  position:absolute;
+  padding: 1px 2px;
+  left:83.7%;
+  top:0.4%
+
+}
+
+#canvasQuatro{
+  position:absolute;
+  left:30%;
+  top:5%
+
+}
+
+#iniciaQuatro{
+  position:absolute;
+  padding: 1px 10px;
+  left:30.5%;
+  top:0.4%
+
+}
+
+#paraQuatro{
+  position:absolute;
+  padding: 1px 10px;
+  left:39%;
+  top:0.4%
+
+}
+
+#continuaQuatro{
+  position:absolute;
+  padding: 1px 2px;
+  left:34.7%;
+  top:0.4%
+
+}
