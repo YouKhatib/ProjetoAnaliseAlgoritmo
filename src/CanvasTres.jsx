@@ -77,7 +77,59 @@ export default class CanvasTres extends React.Component{
 
     selectionSort(){
         ctx.clearRect(0, 0, 200, 200);
+        for (var i = 0; i < ponto.getArrayXTam(); i++){
+            let menor = i;
 
+            for(var j = i + 1; j < ponto.getArrayXTam; j ++){
+                if(ponto.getArrayX(menor) >  ponto.getArrayX(j)){
+                    ponto.alteraValorX(ponto.getArrayX(menor), j);
+                }
+            }
+
+            if(ponto.getArrayX(i) !== ponto.getArrayX(menor)){
+                let tmpX = ponto.getArrayX(i);
+                ponto.alteraValorX(ponto.getArrayX(menor), i);
+                ponto.alteraValorX(tmpX, menor);
+
+            }
+
+        }
+
+        for (var i = 0; i < ponto.getArrayYTam(); i++){
+            let menor = i;
+
+            for(var j = i + 1; j < ponto.getArrayYTam(); j ++){
+                if(ponto.getArrayY(menor) >  ponto.getArrayY(j)){
+                    ponto.alteraValorY(ponto.getArrayY(menor), j);
+                }
+            }
+
+            if(ponto.getArrayY(i) !== ponto.getArrayY(menor)){
+                let tmpX = ponto.getArrayY(i);
+                ponto.alteraValorY(ponto.getArrayY(menor), i);
+                ponto.alteraValorY(tmpX, menor);
+                
+            }
+
+        }
+
+        for(var m = 0; m < ponto.getArrayXTam(); m++){
+            ctx.beginPath();
+            ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
+            ctx.lineTo(ponto.getArrayX(m),200);
+            ctx.stroke();  
+        }
+        
+        var contDois = 0;
+        for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
+            if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
+                contDois++; 
+            }
+        }
+        
+        if(contUm == contDois){
+            clearInterval(refreshIntervalId);
+        }
 
     }
 
