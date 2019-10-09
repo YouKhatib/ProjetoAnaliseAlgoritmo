@@ -123,3 +123,34 @@
   top:0.4%
 
 }
+
+#canvasQuatro{
+  position:absolute;
+  left:30%;
+  top:5%
+
+}
+
+#iniciaQuatro{
+  position:absolute;
+  padding: 1px 10px;
+  left:30.5%;
+  top:0.4%
+
+}
+
+#paraQuatro{
+  position:absolute;
+  padding: 1px 10px;
+  left:39%;
+  top:0.4%
+
+}
+
+#continuaQuatro{
+  position:absolute;
+  padding: 1px 2px;
+  left:34.7%;
+  top:0.4%
+
+}
