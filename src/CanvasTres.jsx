@@ -78,7 +78,7 @@ export default class CanvasTres extends React.Component{
     selectionSort(){
         ctx.clearRect(0, 0, 200, 200);
         for (var i = 0; i < ponto.getArrayXTam(); i++){
-            let menor = i;
+            var menor = i;
 
             for(var j = i + 1; j < ponto.getArrayXTam; j ++){
                 if(ponto.getArrayX(menor) >  ponto.getArrayX(j)){
