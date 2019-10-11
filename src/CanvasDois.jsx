@@ -63,6 +63,7 @@ export default class CanvasDois extends Ponto{
         gap = ponto.getArrayXTam(); 
     }
     combSort(){ 
+        
             ctx.clearRect(0, 0, 200, 200); 
             if(gap <= 1){
                 gap = 1;

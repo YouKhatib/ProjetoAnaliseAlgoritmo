@@ -34,7 +34,7 @@
 }
 #input {
   position:absolute;
-  left:0;
+  left:0%;
   top:0.4%
 }
 #buttonInicia {
@@ -152,5 +152,35 @@
   padding: 1px 2px;
   left:34.7%;
   top:0.4%
+
+}
+#canvasCinco{
+  position:absolute;
+  left:30%;
+  top:40.6%
+
+}
+
+#iniciaCinco{
+  position:absolute;
+  padding: 1px 10px;
+  left:30.5%;
+  top:36%
+
+}
+
+#paraCinco{
+  position:absolute;
+  padding: 1px 10px;
+  left:34.7%;
+  top:36%
+
+}
+
+#continuaCinco{
+  position:absolute;
+  padding: 1px 2px;
+  left:38.8%;
+  top:36%
 
 }
