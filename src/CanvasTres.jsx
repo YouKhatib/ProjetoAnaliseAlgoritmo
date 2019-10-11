@@ -78,7 +78,7 @@ export default class CanvasTres extends React.Component{
     selectionSort(){
         ctx.clearRect(0, 0, 200, 200);
         for (var i = 0; i < ponto.getArrayXTam(); i++){
-            var menor = i;
+            let menor = i;
 
             for(var j = i + 1; j < ponto.getArrayXTam; j ++){
                 if(ponto.getArrayX(menor) >  ponto.getArrayX(j)){
@@ -91,14 +91,16 @@ export default class CanvasTres extends React.Component{
                 ponto.alteraValorX(ponto.getArrayX(menor), i);
                 ponto.alteraValorX(tmpX, menor);
 
-            }
+                console.log("Passou");
+                
+            }   
 
         }
 
         for (var i = 0; i < ponto.getArrayYTam(); i++){
             let menor = i;
 
-            for(var j = i + 1; j < ponto.getArrayYTam(); j ++){
+            for(var j = i + 1; j < ponto.getArrayYTam(); j ++){ 
                 if(ponto.getArrayY(menor) >  ponto.getArrayY(j)){
                     ponto.alteraValorY(ponto.getArrayY(menor), j);
                 }
