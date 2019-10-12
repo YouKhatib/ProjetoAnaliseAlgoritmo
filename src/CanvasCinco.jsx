@@ -9,11 +9,6 @@ var refreshIntervalId;
 var ponto = new Ponto();
 var flag;
 
-
-// var xI = 0;
-// var yI = 0;
-// var x = 0;
-// var po = 0;
 export default class CanvasCinco extends Ponto{
     constructor(props){
         super(props)
@@ -34,7 +29,7 @@ export default class CanvasCinco extends Ponto{
         this.canvasDois.height = canvasHeight;
 
         ctx.font = "10px Arial";
-        ctx.fillText("CombSort",2,10);
+        ctx.fillText("CountingSort",2,10);
     }
 
     comeca(){
@@ -43,12 +38,10 @@ export default class CanvasCinco extends Ponto{
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);
         this.inicializa();
-        this.countingSort();
-        //refreshIntervalId = setInterval(this.animacao(),150);
+        refreshIntervalId = setInterval(this.countingSort,1000);
     }
     continua(){
-        //this.countingSort();
-        refreshIntervalId = setInterval(this.animacao(),150);
+        refreshIntervalId = setInterval(this.countingSort(),1000);
     }
     inicializa(){
         var cntd = localStorage.getItem('Cntd');
@@ -112,7 +105,17 @@ export default class CanvasCinco extends Ponto{
             ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
             ctx.lineTo(ponto.getArrayX(m),200);
             ctx.stroke();  
-        }          
+        }
+        
+        var contDois = 0;
+            for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
+                if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
+                    contDois++; 
+                }
+            }
+            if(contUm == contDois){
+                clearInterval(refreshIntervalId);
+            }
     }
     render(){
         return(
