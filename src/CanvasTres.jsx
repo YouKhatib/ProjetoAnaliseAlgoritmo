@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Ponto from './Pontos.js';
 
+var aux = 0;
+var comeco;
 var ctx;
 var contUm = 0;
 var flag = true;
@@ -53,7 +55,7 @@ export default class CanvasTres extends React.Component{
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();
         this.selectionSort();
-        //refreshIntervalId = setInterval(this.selectionSort,150);
+        refreshIntervalId = setInterval(this.selectionSort,150);
     }
 
     continua(){
@@ -62,14 +64,18 @@ export default class CanvasTres extends React.Component{
     }
 
     inicializa(){
+        comeco = 1;
+        aux = 0;
         var cntd = localStorage.getItem('Cntd');
+        ctx.strokeStyle = "black";
         for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
             let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
             ponto.setArrayX(x);
             ponto.setArrayY(y);
             ctx.beginPath();
-            ctx.arc(x, y, 1, 0, 2 * Math.PI, true);
+            ctx.moveTo(x,y);
+            ctx.lineTo(x,200);
             ctx.stroke();
         }
         ponto.setArrayCopiaOrdenado();
@@ -78,53 +84,62 @@ export default class CanvasTres extends React.Component{
 
     selectionSort(){
         ctx.clearRect(0, 0, 200, 200);
-        for (var i = 0; i < ponto.getArrayXTam(); i++){
-            let menor = i;
+            let menor = aux;
 
-            for(var j = i + 1; j < ponto.getArrayXTam; j ++){
+            for(var j = aux + 1; j < ponto.getArrayXTam(); j ++){
                 if(ponto.getArrayX(menor) >  ponto.getArrayX(j)){
-                    ponto.alteraValorX(ponto.getArrayX(menor), j);
-                    console.log("a");
+                    menor = j; 
+
                 }
+
             }
 
-            if(ponto.getArrayX(i) !== ponto.getArrayX(menor)){
-                let tmpX = ponto.getArrayX(i);
-                ponto.alteraValorX(ponto.getArrayX(menor), i);
+            if(ponto.getArrayX(aux) !== ponto.getArrayX(menor)){
+                let tmpX = ponto.getArrayX(aux);
+                ponto.alteraValorX(ponto.getArrayX(menor), aux);
                 ponto.alteraValorX(tmpX, menor);
-
-                console.log("Passou");
                 
             }   
-            
+        
+            menor = aux;
 
-        }
-
-        for (var i = 0; i < ponto.getArrayYTam(); i++){
-            let menor = i;
-
-            for(var j = i + 1; j < ponto.getArrayYTam(); j ++){ 
+            for(var j = aux + 1; j < ponto.getArrayYTam(); j ++){ 
                 if(ponto.getArrayY(menor) >  ponto.getArrayY(j)){
-                    ponto.alteraValorY(ponto.getArrayY(menor), j);
+                    menor = j;
                 }
             }
 
-            if(ponto.getArrayY(i) !== ponto.getArrayY(menor)){
-                let tmpX = ponto.getArrayY(i);
-                ponto.alteraValorY(ponto.getArrayY(menor), i);
+            if(ponto.getArrayY(aux) !== ponto.getArrayY(menor)){
+                let tmpX = ponto.getArrayY(aux);
+                ponto.alteraValorY(ponto.getArrayY(menor), aux);
                 ponto.alteraValorY(tmpX, menor);
                 
             }
-
-        }
-
+            aux++;
         
         for(var m = 0; m < ponto.getArrayXTam(); m++){
-           console.log(ponto.getArrayX(m), ponto.getArrayY(m));
-            /*ctx.beginPath();
-            ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
-            ctx.lineTo(ponto.getArrayX(m),200);
-            ctx.stroke();*/  
+            ctx.beginPath();
+            ctx.strokeStyle = "black";
+            if(m == comeco){
+                ctx.moveTo(ponto.getArrayX(m),0);
+                ctx.lineTo(ponto.getArrayX(m),200);
+                ctx.strokeStyle = "black";
+                comeco++;
+                ctx.stroke();
+            } else {
+                if(m < comeco){
+                    ctx.moveTo(ponto.getArrayX(m), ponto.getArrayY(m));
+                    ctx.lineTo(ponto.getArrayX(m), 200);
+                    ctx.strokeStyle = "red";
+                    ctx.stroke();
+                } else {
+                    ctx.moveTo(ponto.getArrayX(m), ponto.getArrayY(m));
+                    ctx.lineTo(ponto.getArrayX(m), 200);
+                    ctx.strokeStyle = "black";
+                    ctx.stroke();
+                }
+            }
+
         }
         
         var contDois = 0;
@@ -135,6 +150,14 @@ export default class CanvasTres extends React.Component{
         }
         
         if(contUm == contDois){
+            ctx.clearRect(0, 0, 200, 200);
+            // for(var m = 0; m < ponto.getArrayXTam(); m++){
+            //     ctx.beginPath();
+            //     ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
+            //     ctx.lineTo(ponto.getArrayX(m),200);
+            //     ctx.strokeStyle = "red";
+            //     ctx.stroke();  
+            // }
             clearInterval(refreshIntervalId);
         }
 
