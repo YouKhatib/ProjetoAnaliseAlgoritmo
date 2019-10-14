@@ -9,6 +9,7 @@ var flag = true;
 var refreshIntervalId;
 var ponto = new Ponto();
 var cntd;
+var final;
 export default class Canvas extends React.Component{
     constructor(props){
         super(props)
@@ -73,6 +74,7 @@ export default class Canvas extends React.Component{
             ctx.arc(x, y, 1, 0, 2 * Math.PI, true);
             ctx.stroke();
         }
+        final = ponto.getArrayXTam() - 1;
         ponto.setArrayCopiaOrdenado();
         contUm = ponto.getArrayXTam();
     }
@@ -93,9 +95,26 @@ export default class Canvas extends React.Component{
         }
         for(var m = 0; m < ponto.getArrayXTam(); m++){
             ctx.beginPath();
-            ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
-            ctx.lineTo(ponto.getArrayX(m),200);
-            ctx.stroke();  
+            if(m == final){
+                ctx.moveTo(ponto.getArrayX(m), 0);
+                ctx.lineTo(ponto.getArrayX(m), 200);
+                ctx.strokeStyle = "red";
+                final--;
+                ctx.stroke();
+            }
+            else{
+                if(m > final){
+                    ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
+                    ctx.lineTo(ponto.getArrayX(m),200);
+                    ctx.strokeStyle = "red";
+                    ctx.stroke();  
+                }else{
+                    ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
+                    ctx.lineTo(ponto.getArrayX(m),200);
+                    ctx.strokeStyle = "black";
+                    ctx.stroke();  
+                }
+            }
         }
         var contDois = 0;
         for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
@@ -103,8 +122,9 @@ export default class Canvas extends React.Component{
                 contDois++; 
             }
         }
-        if(contUm == contDois){
-            clearInterval(refreshIntervalId);
+        if(contUm == contDois && final == -1){
+            console.log("parou");
+           clearInterval(refreshIntervalId);
         }
     }
 

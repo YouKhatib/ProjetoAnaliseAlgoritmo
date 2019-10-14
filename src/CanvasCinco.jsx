@@ -8,7 +8,10 @@ var ctx;
 var refreshIntervalId;
 var ponto = new Ponto();
 var flag;
-
+//var copiaX = [];
+//var copiaY = [];
+var final;
+var ds;
 export default class CanvasCinco extends Ponto{
     constructor(props){
         super(props)
@@ -38,28 +41,35 @@ export default class CanvasCinco extends Ponto{
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);
         this.inicializa();
-        refreshIntervalId = setInterval(this.countingSort,1000);
+        this.countingSort();
+        //refreshIntervalId = setInterval(this.countingSort,1000);
+        refreshIntervalId = setInterval(this.animacao,5);
     }
     continua(){
         refreshIntervalId = setInterval(this.countingSort(),1000);
     }
     inicializa(){
         var cntd = localStorage.getItem('Cntd');
+        ds = 200;
         for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
             let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
             ponto.setArrayX(x);
             ponto.setArrayY(y);
+            //copiaX.push(x);
+            //copiaY.push(y);
             ctx.beginPath();
             ctx.moveTo(x,y);
             ctx.lineTo(x,200);
+            ctx.strokeStyle = "black";
             ctx.stroke();
         }
+        final = ponto.getArrayXTam() - 1;
         ponto.setArrayCopiaOrdenado();
         contUm = ponto.getArrayXTam();
     }
     countingSort (){
-        ctx.clearRect(0, 0, 200, 200);
+        // ctx.clearRect(0, 0, 200, 200);
         var tamanhoX = ponto.getArrayXTam();
         var tamanhoY = ponto.getArrayXTam();
         var maiorX = 0;
@@ -100,23 +110,66 @@ export default class CanvasCinco extends Ponto{
                 countY[i]--;
             }              
         }
-        for(var m = 0; m < ponto.getArrayXTam(); m++){
+        /*for(var m = 0; m < ponto.getArrayXTam(); m++){
             ctx.beginPath();
             ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
             ctx.lineTo(ponto.getArrayX(m),200);
             ctx.stroke();  
-        }
+        }*/
         
-        var contDois = 0;
-            for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
-                if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
-                    contDois++; 
+        // var contDois = 0;
+        //     for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
+        //         if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
+        //             contDois++; 
+        //         }
+        //     }
+        //     if(contUm == contDois){
+        //         clearInterval(refreshIntervalId);
+        //     }
+    }
+
+    animacao(){
+        if(ds <= 0){
+            ctx.clearRect(0, 0, 200, 200);
+            for(var m = 0; m < ponto.getArrayXTam(); m++){
+                ctx.beginPath();
+                ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
+                ctx.lineTo(ponto.getArrayX(m),200);
+                ctx.stroke();
+                //clearInterval(refreshIntervalId);  
+            }
+        }else{
+            ctx.beginPath();
+            ctx.moveTo(ds,0);
+            ctx.lineTo(ds,200);
+            ctx.strokeStyle = "red";
+            ctx.stroke();  
+            ds--;
+        }
+        /*if(final >= 0){
+            ctx.clearRect(0, 0, 200, 200);
+            for(var i = 0; i < ponto.getArrayXTam(); i++){
+                if(i >= final){
+                    ctx.beginPath();
+                    ctx.moveTo(ponto.getArrayX(i),ponto.getArrayY(i));
+                    ctx.lineTo(ponto.getArrayX(i),200);
+                    ctx.stroke();  
+                }
+                else{
+                    ctx.beginPath();
+                    ctx.moveTo(copiaX[i],copiaY[i]);
+                    ctx.lineTo(copiaX[i],200);
+                    ctx.stroke();  
                 }
             }
-            if(contUm == contDois){
-                clearInterval(refreshIntervalId);
-            }
+        }
+        else{
+            clearInterval(refreshIntervalId);
+        }
+        final--;*/
+
     }
+
     render(){
         return(
             <div>

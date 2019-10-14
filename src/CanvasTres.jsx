@@ -53,7 +53,7 @@ export default class CanvasTres extends React.Component{
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();
         this.selectionSort();
-        refreshIntervalId = setInterval(this.selectionSort,150);
+        //refreshIntervalId = setInterval(this.selectionSort,150);
     }
 
     continua(){
@@ -62,6 +62,7 @@ export default class CanvasTres extends React.Component{
     }
 
     inicializa(){
+        var cntd = localStorage.getItem('Cntd');
         for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
             let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
@@ -83,6 +84,7 @@ export default class CanvasTres extends React.Component{
             for(var j = i + 1; j < ponto.getArrayXTam; j ++){
                 if(ponto.getArrayX(menor) >  ponto.getArrayX(j)){
                     ponto.alteraValorX(ponto.getArrayX(menor), j);
+                    console.log("a");
                 }
             }
 
@@ -94,6 +96,7 @@ export default class CanvasTres extends React.Component{
                 console.log("Passou");
                 
             }   
+            
 
         }
 
@@ -115,11 +118,13 @@ export default class CanvasTres extends React.Component{
 
         }
 
+        
         for(var m = 0; m < ponto.getArrayXTam(); m++){
-            ctx.beginPath();
+           console.log(ponto.getArrayX(m), ponto.getArrayY(m));
+            /*ctx.beginPath();
             ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
             ctx.lineTo(ponto.getArrayX(m),200);
-            ctx.stroke();  
+            ctx.stroke();*/  
         }
         
         var contDois = 0;

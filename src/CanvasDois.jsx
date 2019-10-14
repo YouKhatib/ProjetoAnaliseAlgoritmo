@@ -47,6 +47,7 @@ export default class CanvasDois extends Ponto{
     }
     inicializa(){
         var cntd = localStorage.getItem('Cntd');
+        ctx.strokeStyle = "black";
         for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
             let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
@@ -63,39 +64,46 @@ export default class CanvasDois extends Ponto{
         gap = ponto.getArrayXTam(); 
     }
     combSort(){ 
-        
-            ctx.clearRect(0, 0, 200, 200); 
-            if(gap <= 1){
-                gap = 1;
+        ctx.clearRect(0, 0, 200, 200); 
+        if(gap <= 1){
+            gap = 1;
+        }
+        for (let i=0; i < ponto.getArrayXTam() - gap; i++){ 
+            if (ponto.getArrayX(i)> ponto.getArrayX(gap + i)){ 
+                let temp =ponto.getArrayX(i);
+                ponto.alteraValorX(ponto.getArrayX(gap + i), i);
+                ponto.alteraValorX(temp, gap + i)
+            } 
+            if (ponto.getArrayY(i) > ponto.getArrayY(gap + i)){ 
+                let temp =ponto.getArrayY(i);
+                ponto.alteraValorY(ponto.getArrayY(gap + i), i); //arrayX[i] = arrayX[i+gapX];
+                ponto.alteraValorY(temp, gap + i) //arrayX[i+gapX] = temp;   
+            } 
+        }
+        gap = Math.floor(gap/1.3); 
+        for(var m = 0; m < ponto.getArrayXTam(); m++){
+            ctx.beginPath();
+            ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
+            ctx.lineTo(ponto.getArrayX(m),200);
+            ctx.stroke();  
+        }
+        var contDois = 0;
+        for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
+            if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
+                contDois++; 
             }
-            for (let i=0; i < ponto.getArrayXTam() - gap; i++){ 
-                if (ponto.getArrayX(i)> ponto.getArrayX(gap + i)){ 
-                    let temp =ponto.getArrayX(i);
-                    ponto.alteraValorX(ponto.getArrayX(gap + i), i);
-                    ponto.alteraValorX(temp, gap + i)
-                } 
-                if (ponto.getArrayY(i) > ponto.getArrayY(gap + i)){ 
-                    let temp =ponto.getArrayY(i);
-                    ponto.alteraValorY(ponto.getArrayY(gap + i), i); //arrayX[i] = arrayX[i+gapX];
-                    ponto.alteraValorY(temp, gap + i) //arrayX[i+gapX] = temp;   
-                } 
-            }
-            gap = Math.floor(gap/1.3); 
+        }
+        if(contUm == contDois){
+            ctx.clearRect(0, 0, 200, 200);
             for(var m = 0; m < ponto.getArrayXTam(); m++){
                 ctx.beginPath();
                 ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
                 ctx.lineTo(ponto.getArrayX(m),200);
+                ctx.strokeStyle = "red";
                 ctx.stroke();  
             }
-            var contDois = 0;
-            for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
-                if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
-                    contDois++; 
-                }
-            }
-            if(contUm == contDois){
-                clearInterval(refreshIntervalId);
-            }
+            clearInterval(refreshIntervalId);
+        }
     }
     render(){
         return(
