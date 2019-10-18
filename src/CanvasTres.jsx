@@ -150,7 +150,7 @@ export default class CanvasTres extends React.Component{
         }
         
         if(contUm == contDois){
-            ctx.clearRect(0, 0, 200, 200);
+            //ctx.clearRect(0, 0, 200, 200);
             // for(var m = 0; m < ponto.getArrayXTam(); m++){
             //     ctx.beginPath();
             //     ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));

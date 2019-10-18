@@ -23,6 +23,15 @@ export default class Ponto extends React.Component{
     alteraValorY(a, i){
         this.arrayY[i] = a;
     }
+    alteraArrayX(arr){
+        this.arrayX = arr;
+    }
+    getArrayTodaX(){
+        return this.arrayX;
+    }
+    getArrayTodaY(){
+        return this.arrayY;
+    }
     zeraArrays(){
         this.arrayY = [];
         this.arrayX = [];

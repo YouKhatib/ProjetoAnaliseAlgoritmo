@@ -5,6 +5,7 @@ import CanvasDois from './CanvasDois.jsx'
 import CanvasTres from './CanvasTres.jsx'
 import CanvasQuatro from './CanvasQuatro'
 import CanvasCinco from './CanvasCinco'
+import CanvasSeis from './CanvasSeis'
 import './App.css';
 
 
@@ -17,6 +18,7 @@ function App() {
         <CanvasTres />
         <CanvasQuatro />
         <CanvasCinco />
+        <CanvasSeis />
     </div>
   );
 }

@@ -10,7 +10,11 @@ var ponto = new Ponto();
 var flag;
 var final;
 var ds;
-export default class CanvasCinco extends Ponto{
+var arrAuxXum = [];
+var arrAuxXdois = [];
+var maxX = 0;
+var maxY;
+export default class CanvasSeis extends Ponto{
     constructor(props){
         super(props)
         this.state = {
@@ -24,10 +28,10 @@ export default class CanvasCinco extends Ponto{
         })
     }
     componentDidMount(){
-        ctx = this.canvasCinco.getContext("2d");
+        ctx = this.canvasSeis.getContext("2d");
         const {canvasWidth, canvasHeight} = this.state.canvasSize;
-        this.canvasCinco.width = canvasWidth;
-        this.canvasCinco.height = canvasHeight;
+        this.canvasSeis.width = canvasWidth;
+        this.canvasSeis.height = canvasHeight;
 
         ctx.font = "10px Arial";
         ctx.fillText("CountingSort",2,10);
@@ -39,8 +43,8 @@ export default class CanvasCinco extends Ponto{
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);
         this.inicializa();
-        this.countingSort();
-        refreshIntervalId = setInterval(this.animacao,5);
+        this.radixSort();
+        //refreshIntervalId = setInterval(this.animacao,5);
     }
     continua(){
         refreshIntervalId = setInterval(this.countingSort(),1000);
@@ -63,47 +67,24 @@ export default class CanvasCinco extends Ponto{
         ponto.setArrayCopiaOrdenado();
         contUm = ponto.getArrayXTam();
     }
-    countingSort (){
-        var tamanhoX = ponto.getArrayXTam();
-        var tamanhoY = ponto.getArrayXTam();
-        var maiorX = 0;
-        var maiorY = 0;
-        var countX = [];
-        var countY = [];
-        var j = 0;
-        var x = 0;
-        for(var i = 0; i < tamanhoX; i++){
-            if(ponto.getArrayX(i) > maiorX)
-                maiorX = ponto.getArrayX(i);
+
+
+    getPosition(num, place){
+        return  Math.floor(Math.abs(num)/Math.pow(10,place))% 10
+    }
+
+    getDigit(num,nth){
+        var ret = 0;
+        while(nth--){
+            ret = num % 10
+            num = Math.floor((num - ret) / 10)
         }
-        for(var i = 0; i < tamanhoY; i++){
-            if(ponto.getArrayY(i) > maiorY)
-                maiorY = ponto.getArrayY(i);
-        }
-        for (var i = 0; i <= maiorX; i++) {
-            countX[i] = 0;
-        }
-        for (var i = 0; i <= maiorY; i++) {
-            countY[i] = 0;
-        }
-        for (var i = 0; i < tamanhoX; i++) {
-            countX[ponto.getArrayX(i)] += 1;
-            countY[ponto.getArrayY(i)] += 1;
-        }
-         for (var i = 0; i <= maiorX; i++) {
-            while (countX[i] > 0) {
-                ponto.alteraValorX(i, j);
-                j++;
-                countX[i]--;        
-            }
-        }
-        for (var i = 0; i <= maiorY; i++) {
-            while (countY[i] > 0) {
-                ponto.alteraValorY(i, x);
-                x++;
-                countY[i]--;
-            }              
-        }
+        return ret
+    }
+    
+    // radixSort
+    radixSort(){
+       
     }
 
     animacao(){
@@ -114,10 +95,7 @@ export default class CanvasCinco extends Ponto{
                 ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
                 ctx.lineTo(ponto.getArrayX(m),200);
                 ctx.stroke();
-                if(m == 200){
-                    console.log(ponto.getArrayTodaX());
-                    clearInterval(refreshIntervalId); 
-                } 
+                //clearInterval(refreshIntervalId);  
             }
         }else{
             ctx.beginPath();
@@ -132,15 +110,15 @@ export default class CanvasCinco extends Ponto{
     render(){
         return(
             <div>
-                <button id='iniciaCinco' onClick={start}>Iniciar</button>
-                <button id='paraCinco' onClick={para} >Parar</button>
-                <button id='continuaCinco' onClick={keep}>Continuar</button>
-                <canvas id='canvasCinco' ref={ canvasCinco => this.canvasCinco = canvasCinco}> </canvas>
+                <button id = 'iniciaSeis' onClick={start}>Iniciar</button>
+                <button id = 'paraSeis' onClick={para} >Parar</button>
+                <button id = 'continuaSeis' onClick={keep}>Continuar</button>
+                <canvas id='canvasSeis' ref={ canvasSeis => this.canvasSeis = canvasSeis}> </canvas>
             </div>
         )
     }
 }
-var cd = new CanvasCinco();
+var cd = new CanvasSeis();
 function start() {
      clearInterval(refreshIntervalId);
      cd.comeca();
