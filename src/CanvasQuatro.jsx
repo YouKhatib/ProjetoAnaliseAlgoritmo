@@ -77,7 +77,39 @@ export default class CanvasTres extends React.Component{
 
     heapSort(){
         ctx.clearRect(0, 0, 200, 200);
-
+        function sift(v, tam, i){
+            var maior = i;
+            var esq = 2*i + 1;
+            var dir = 2*i + 2;
+          
+            if(esq < tam && v[esq] > v[maior]){
+                maior = esq;
+            }
+            
+            if(dir < tam && v[dir] > v[maior]){
+                maior = dir;
+            }
+          
+            if(maior != i){
+                [v[i], v[maior]] = [v[maior], v[i]];
+                sift(v, tam, maior);
+            }
+          
+          }
+          
+          function heapSort(v, tam){
+            for(let i = Math.floor(tam/2) ; i >= 0; i--)
+                sift(v, tam, i);
+          
+            for(let i = tam - 1; v[i] >= 0; i--){
+                [v[0], v[i]] = [v[i], v[0]];
+                sift(v, i, 0);
+            }
+          
+          }
+          
+          var a = [4, 2, 3, 1, 5]
+          heapSort(a, a.length);
 
         for(var m = 0; m < ponto.getArrayXTam(); m++){
             ctx.beginPath();

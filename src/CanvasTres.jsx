@@ -126,7 +126,6 @@ export default class CanvasTres extends React.Component{
                 ctx.moveTo(ponto.getArrayX(m),0);
                 ctx.lineTo(ponto.getArrayX(m),200);
                 ctx.strokeStyle = "black";
-                comeco++;
                 ctx.stroke();
             } else {
                 if(m < comeco){
@@ -142,7 +141,8 @@ export default class CanvasTres extends React.Component{
                 }
             }
 
-        }
+        }       
+        comeco++;
         
         var contDois = 0;
         for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
