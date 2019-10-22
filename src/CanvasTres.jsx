@@ -11,6 +11,7 @@ var flag = true;
 var refreshIntervalId;
 var ponto = new Ponto();
 var cntd;
+var intervalo;
 export default class CanvasTres extends React.Component{
     constructor(props){
         super(props)
@@ -49,18 +50,19 @@ export default class CanvasTres extends React.Component{
     }
 
     comeca(){
+        intervalo = localStorage.getItem('Intervalo');
         ponto.zeraArrays();
         ponto.zeraArraysCopia();
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();
         this.selectionSort();
-        refreshIntervalId = setInterval(this.selectionSort,150);
+        refreshIntervalId = setInterval(this.selectionSort,intervalo);
     }
 
     continua(){
         this.selectionSort();
-        refreshIntervalId = setInterval(this.selectionSort,150);
+        refreshIntervalId = setInterval(this.selectionSort,intervalo);
     }
 
     inicializa(){

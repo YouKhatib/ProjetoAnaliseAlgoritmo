@@ -19,6 +19,8 @@ function App() {
         <CanvasQuatro />
         <CanvasCinco />
         <CanvasSeis />
+        <p id='pelements'>Digite a quantidade de elementos:</p>
+        <p id='pintervalo'>Digite o intervalo entre cada animação(1000 = 1 segundo):</p>
     </div>
   );
 }

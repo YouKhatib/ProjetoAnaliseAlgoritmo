@@ -86,6 +86,12 @@
 
 }
 
+#inputInt{
+  position: absolute;
+  left: 5%;
+  top: 10%;
+}
+
 #inputButton{
   position: absolute;
   left: 39.5%;
@@ -213,5 +219,18 @@
   padding: 1px 2px;
   left:53.7%;
   top:36%
+}
 
+#pelements{
+  position:absolute;
+  padding: 1px 2px;
+  left:0%;
+  top:-3%
+}
+
+#pintervalo{
+  position:absolute;
+  padding: 1px 2px;
+  left:0%;
+  top:3.5%
 }

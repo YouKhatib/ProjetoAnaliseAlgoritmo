@@ -5,6 +5,7 @@ import Ponto from './Pontos.js';
 
 var contUm = 0;
 var ctx;
+var intervalo;
 var refreshIntervalId;
 var ponto = new Ponto();
 var flag;
@@ -16,7 +17,19 @@ export default class CanvasDois extends Ponto{
             arrayX: [],
             arrayY: [],
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+    
+      handleSubmit(event) {
+        intervalo = parseInt(this.state.value);
+        localStorage.removeItem('Intervalo');
+        localStorage.setItem('Intervalo', intervalo);
+        event.preventDefault();
+      }
     componentWillMount(){
         this.setState({
             canvasSize: {canvasWidth: 200, canvasHeight: 200}
@@ -33,17 +46,18 @@ export default class CanvasDois extends Ponto{
     }
 
     comeca(){
+        intervalo = localStorage.getItem('Intervalo');
         ponto.zeraArrays();
         ponto.zeraArraysCopia();
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);
         this.inicializa();
         this.combSort();
-        refreshIntervalId = setInterval(this.combSort,150);
+        refreshIntervalId = setInterval(this.combSort,intervalo);
     }
     continua(){
         this.combSort();
-        refreshIntervalId = setInterval(this.combSort,150);
+        refreshIntervalId = setInterval(this.combSort,intervalo);
     }
     inicializa(){
         var cntd = localStorage.getItem('Cntd');
@@ -108,6 +122,12 @@ export default class CanvasDois extends Ponto{
     render(){
         return(
             <div>
+                <form id='inputInt' onSubmit={this.handleSubmit}>
+                <label>
+                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+                </form>
                 <button id='buttonIniciaDois' onClick={start}>Iniciar</button>
                 <button id='buttonParaDois' onClick={para} >Parar</button>
                 <button id='buttonContDois' onClick={keep}>Continuar</button>

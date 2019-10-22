@@ -6,6 +6,7 @@ import Ponto from './Pontos.js';
 var ctx;
 var contUm = 0;
 var flag = true;
+var intervalo;
 var refreshIntervalId;
 var ponto = new Ponto();
 var cntd;
@@ -27,7 +28,7 @@ export default class Canvas extends React.Component{
     
       handleSubmit(event) {
         cntd = parseInt(this.state.value);
-        localStorage.clear();
+        localStorage.removeItem('Cntd');
         localStorage.setItem('Cntd', cntd);
         event.preventDefault();
       }
@@ -50,21 +51,23 @@ export default class Canvas extends React.Component{
     }
 
     comeca(){
+        intervalo = localStorage.getItem('Intervalo');
         ponto.zeraArrays();
         ponto.zeraArraysCopia();
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();
         this.bubbleSort();
-        refreshIntervalId = setInterval(this.bubbleSort,150);
+        refreshIntervalId = setInterval(this.bubbleSort,intervalo);
     }
 
     continua(){
         this.bubbleSort();
-        refreshIntervalId = setInterval(this.bubbleSort,150);
+        refreshIntervalId = setInterval(this.bubbleSort,intervalo);
     }
 
     inicializa(){
+        var cntd = localStorage.getItem('Cntd');
         for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
             let  y = Math.floor(Math.random() * (200 - 1)) + 1; 

@@ -43,7 +43,7 @@ export default class CanvasCinco extends Ponto{
         refreshIntervalId = setInterval(this.animacao,5);
     }
     continua(){
-        refreshIntervalId = setInterval(this.countingSort(),1000);
+        refreshIntervalId = setInterval(this.animacao,5);
     }
     inicializa(){
         var cntd = localStorage.getItem('Cntd');
