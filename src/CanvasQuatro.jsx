@@ -8,6 +8,7 @@ var flag = true;
 var refreshIntervalId;
 var ponto = new Ponto();
 var cntd;
+var indice = 0;
 export default class CanvasTres extends React.Component{
     constructor(props){
         super(props)
@@ -101,10 +102,18 @@ export default class CanvasTres extends React.Component{
                 sift(v, tam, i);
           
             for(let i = tam - 1; v[i] >= 0; i--){
-                [v[0], v[i]] = [v[i], v[0]];
+                ponto.alteraValorX(ponto.getArrayX(0), i)
                 sift(v, i, 0);
             }
           
+            for(let i = Math.floor(tam/2) ; i >= 0; i--)
+                sift(v, tam, i);
+      
+            for(let i = tam - 1; v[i] >= 0; i--){
+                ponto.alteraValorY(ponto.getArrayY(0), i)
+                sift(v, i, 0);
+
+            }
           }
           
           var a = [4, 2, 3, 1, 5]

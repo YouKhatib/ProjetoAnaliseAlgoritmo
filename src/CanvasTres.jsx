@@ -22,21 +22,25 @@ export default class CanvasTres extends React.Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
+
     handleChange(event) {
         this.setState({value: event.target.value});
+
       }
     
-      handleSubmit(event) {
+    handleSubmit(event) {
         cntd = parseInt(this.state.value);
         event.preventDefault();
-      }
-    
+
+    }
 
     componentWillMount(){
         this.setState({
             canvasSize: {canvasWidth: 200, canvasHeight: 200}
         })
+
     }
 
     componentDidMount(){
@@ -47,6 +51,7 @@ export default class CanvasTres extends React.Component{
 
         ctx.font = "10px Arial";
         ctx.fillText("SelectionSort",2,10);
+
     }
 
     comeca(){
@@ -58,11 +63,13 @@ export default class CanvasTres extends React.Component{
         this.inicializa();
         this.selectionSort();
         refreshIntervalId = setInterval(this.selectionSort,intervalo);
+
     }
 
     continua(){
         this.selectionSort();
         refreshIntervalId = setInterval(this.selectionSort,intervalo);
+
     }
 
     inicializa(){
@@ -79,9 +86,11 @@ export default class CanvasTres extends React.Component{
             ctx.moveTo(x,y);
             ctx.lineTo(x,200);
             ctx.stroke();
+
         }
         ponto.setArrayCopiaOrdenado();
         contUm = ponto.getArrayXTam();
+
     }
 
     selectionSort(){
@@ -108,7 +117,9 @@ export default class CanvasTres extends React.Component{
             for(var j = aux + 1; j < ponto.getArrayYTam(); j ++){ 
                 if(ponto.getArrayY(menor) >  ponto.getArrayY(j)){
                     menor = j;
+
                 }
+
             }
 
             if(ponto.getArrayY(aux) !== ponto.getArrayY(menor)){
@@ -148,7 +159,9 @@ export default class CanvasTres extends React.Component{
         for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
             if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
                 contDois++; 
+
             }
+
         }
         
         if(contUm == contDois){
@@ -182,14 +195,18 @@ function start() {
     clearInterval(refreshIntervalId);
     cd.comeca();
     flag = true;
+
 }
 function para() {
     clearInterval(refreshIntervalId);
     flag = false;
+
 }
 function keep(){
     if(flag == false){
        cd.continua();
        flag = true;
+
     }
+    
 }
