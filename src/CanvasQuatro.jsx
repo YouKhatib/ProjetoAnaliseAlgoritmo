@@ -9,7 +9,8 @@ var refreshIntervalId;
 var ponto = new Ponto();
 var cntd;
 var indice = 0;
-export default class CanvasTres extends React.Component{
+var v = [];
+export default class canvasQuatro extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -62,63 +63,84 @@ export default class CanvasTres extends React.Component{
     }
 
     inicializa(){
+        var cntd = localStorage.getItem('Cntd');
+        ctx.strokeStyle = "black";
         for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
-            let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
+            let y = Math.floor(Math.random() * (200 - 1)) + 1; 
             ponto.setArrayX(x);
             ponto.setArrayY(y);
+            v.push(x);
             ctx.beginPath();
-            ctx.arc(x, y, 1, 0, 2 * Math.PI, true);
+            ctx.moveTo(x,y);
+            ctx.lineTo(x,200);
             ctx.stroke();
+
         }
         ponto.setArrayCopiaOrdenado();
         contUm = ponto.getArrayXTam();
+
     }
 
-    heapSort(){
-        ctx.clearRect(0, 0, 200, 200);
-        function sift(v, tam, i){
-            var maior = i;
-            var esq = 2*i + 1;
-            var dir = 2*i + 2;
-          
-            if(esq < tam && v[esq] > v[maior]){
-                maior = esq;
-            }
-            
-            if(dir < tam && v[dir] > v[maior]){
-                maior = dir;
-            }
-          
-            if(maior != i){
-                [v[i], v[maior]] = [v[maior], v[i]];
-                sift(v, tam, maior);
-            }
-          
-          }
-          
-          function heapSort(v, tam){
-            for(let i = Math.floor(tam/2) ; i >= 0; i--)
-                sift(v, tam, i);
-          
-            for(let i = tam - 1; v[i] >= 0; i--){
-                ponto.alteraValorX(ponto.getArrayX(0), i)
-                sift(v, i, 0);
-            }
-          
-            for(let i = Math.floor(tam/2) ; i >= 0; i--)
-                sift(v, tam, i);
+    sift(v, tam, i){
+        var maior = i;
+        var esq = 2*i + 1;
+        var dir = 2*i + 2;
       
-            for(let i = tam - 1; v[i] >= 0; i--){
-                ponto.alteraValorY(ponto.getArrayY(0), i)
-                sift(v, i, 0);
+        if(esq < tam && v[esq] > v[maior]){
+            maior = esq;
+        }
+        
+        if(dir < tam && v[dir] > v[maior]){
+            maior = dir;
+        }
+      
+        if(maior != i){
+            [v[i], v[maior]] = [v[maior], v[i]];
+            this.sift(v, tam, maior);
+        }
+      
+      }
+      
+    //   heapSort(){
+    //     for(let i = Math.floor(ponto.getArrayXTam()/2) ; i >= 0; i--)
+    //         this.sift(ponto.getArrayX(), ponto.getArrayXTam(), i);
+      
+    //     for(let i = ponto.getArrayXTam() - 1; ponto.getArrayX(i) >= 0; i--){
+    //         ponto.alteraValorX(ponto.getArrayX(0), i);
+    //         this.sift(ponto.getArrayX(), i, 0);
+    //     }
 
-            }
-          }
-          
-          var a = [4, 2, 3, 1, 5]
-          heapSort(a, a.length);
+    //     for(let i = Math.floor(ponto.getArrayYTam()/2) ; i >= 0; i--)
+    //         this.sift(ponto.getArrayY(), ponto.getArrayYTam(), i);
+  
+    //     for(let i = ponto.getArrayYTam() - 1; ponto.getArrayY(i) >= 0; i--){
+    //         ponto.alteraValorY(ponto.getArrayY(0), i);
+    //         this.sift(ponto.getArrayY(), i, 0);
+    //     }
+    //   }
 
+
+    heapSort(){
+        ctx.clearRect(0, 0, 200, 200);            
+        for(let i = Math.floor(ponto.getArrayXTam()/2) ; i >= 0; i--)
+            this.sift(ponto.getArrayX(), ponto.getArrayXTam(), i);
+        
+        for(let i = ponto.getArrayXTam() - 1; ponto.getArrayX(i) >= 0; i--){
+            ponto.alteraValorX(ponto.getArrayX(0), i)
+            this.sift(ponto.getArrayX(), i, 0);
+        }
+        
+        for(let i = Math.floor(ponto.getArrayYTam()/2) ; i >= 0; i--)
+            this.sift(ponto.getArrayY(), ponto.getArrayYTam(), i);
+    
+        for(let i = ponto.getArrayYTam() - 1; ponto.getArrayY(i) >= 0; i--){
+            ponto.alteraValorY(ponto.getArrayY(0), i)
+            this.sift(ponto.getArrayY(), i, 0);
+
+        }
+        
+        console.log(v);
         for(var m = 0; m < ponto.getArrayXTam(); m++){
             ctx.beginPath();
             ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
@@ -151,11 +173,12 @@ export default class CanvasTres extends React.Component{
     }
 }
 
-var cd = new CanvasTres();
+var cd = new canvasQuatro();
 function start() {
     clearInterval(refreshIntervalId);
     cd.comeca();
     flag = true;
+    console.log(v)
 }
 function para() {
     clearInterval(refreshIntervalId);
@@ -167,3 +190,4 @@ function keep(){
        flag = true;
     }
 }
+
