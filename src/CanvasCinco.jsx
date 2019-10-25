@@ -7,62 +7,60 @@ var ctx;
 var refreshIntervalId;
 var ponto = new Ponto();
 var flag;
-var final;
-var ds;
+var ds;//Declaração de variáveis globais
 export default class CanvasCinco extends Ponto{
-    constructor(props){
+    constructor(props){//Construtor necessário para o React
         super(props)
         this.state = {
             arrayX: [],
             arrayY: [],
         }
     }
-    componentWillMount(){
-        this.setState({
+    componentWillMount(){//função executada automaticamente pelo react
+        this.setState({//declaração do tamanho do canvas
             canvasSize: {canvasWidth: 200, canvasHeight: 200}
         })
     }
-    componentDidMount(){
-        ctx = this.canvasCinco.getContext("2d");
-        const {canvasWidth, canvasHeight} = this.state.canvasSize;
-        this.canvasCinco.width = canvasWidth;
-        this.canvasCinco.height = canvasHeight;
+    componentDidMount(){//função executada automaticamente pelo react
+        ctx = this.canvasCinco.getContext("2d");//declaração do contexto do canvas
+        const {canvasWidth, canvasHeight} = this.state.canvasSize;//declaração do canvas
+        this.canvasCinco.width = canvasWidth;//setando a largura do canvas
+        this.canvasCinco.height = canvasHeight;//setando a altura do canvas
 
-        ctx.font = "10px Arial";
-        ctx.fillText("CountingSort",2,10);
+        ctx.font = "10px Arial";//fonte do texto
+        ctx.fillText("CountingSort",2,10);//texto a ser escrito dentro do canvas
     }
 
-    comeca(){
-        ponto.zeraArrays();
-        ponto.zeraArraysCopia();
+    comeca(){//função de inicio (chamada pelo botão iniciar)
+        ponto.zeraArrays();//zero as arrays caso haja algum valor nelas
+        ponto.zeraArraysCopia();//zero as arrays auxiliares caso haja algum valor nelas
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
-        ctx.clearRect(0, 0, 200, 200);
-        this.inicializa();
-        this.countingSort();
+        ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
+        this.inicializa();//função de inicializar os elementos
+        this.countingSort();//chamo o countingSort
+        refreshIntervalId = setInterval(this.animacao,5);//chamo a função de animacao indefinidamente com um intervalo pre-setado
+    }
+    continua(){//função chamada pelo botão de continuar(caso haja alguma pausa)
         refreshIntervalId = setInterval(this.animacao,5);
     }
-    continua(){
-        refreshIntervalId = setInterval(this.animacao,5);
-    }
-    inicializa(){
-        var cntd = localStorage.getItem('Cntd');
-        ds = 200;
+    inicializa(){//função que inicializa os elementos
+        var cntd = localStorage.getItem('Cntd');//obtenção do valor guardado no navegador
+        ds = 200; //declaração do valor utilizado para a animação do countingSort
         for(var j = 0; j < cntd; j++){
-            let x = Math.floor(Math.random() * (200 - 1)) + 1; 
-            let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
-            ponto.setArrayX(x);
-            ponto.setArrayY(y);
-            ctx.beginPath();
-            ctx.moveTo(x,y);
-            ctx.lineTo(x,200);
-            ctx.strokeStyle = "black";
-            ctx.stroke();
+            let x = Math.floor(Math.random() * (200 - 1)) + 1; //geração de um valor aleatório de 1 a 200 para guardar no arrayX
+            let  y = Math.floor(Math.random() * (200 - 1)) + 1; //geração de um valor aleatório de 1 a 200 para guardar no arrayY
+            ponto.setArrayX(x);//passando o valor para o arrayX
+            ponto.setArrayY(y);//passando o valor para o arrayY
+            ctx.beginPath();//começando o desenho no canvas
+            ctx.moveTo(x,y);//inicio da linha no canvas
+            ctx.lineTo(x,200);//final da linha no canvas
+            ctx.strokeStyle = "black";//cor das linhas
+            ctx.stroke();//finalizando o desenho no canvas
         }
-        final = ponto.getArrayXTam() - 1;
-        ponto.setArrayCopiaOrdenado();
-        contUm = ponto.getArrayXTam();
+        ponto.setArrayCopiaOrdenado();//ordenando a array auxiliar
+        contUm = ponto.getArrayXTam();//obtendo o tamanho do contador um
     }
-    countingSort (){
+    countingSort (){//Implementação do CountingSort
         var tamanhoX = ponto.getArrayXTam();
         var tamanhoY = ponto.getArrayXTam();
         var maiorX = 0;
@@ -105,7 +103,7 @@ export default class CanvasCinco extends Ponto{
         }
     }
 
-    animacao(){
+    animacao(){//função para animação de checagem da array
         if(ds <= 0){
             ctx.clearRect(0, 0, 200, 200);
             for(var m = 0; m < ponto.getArrayXTam(); m++){
@@ -128,7 +126,7 @@ export default class CanvasCinco extends Ponto{
         }
     }
 
-    render(){
+    render(){//função render do React, obtendo o que será renderizado na tela pelo classe.
         return(
             <div>
                 <button id='iniciaCinco' onClick={start}>Iniciar</button>
@@ -139,17 +137,17 @@ export default class CanvasCinco extends Ponto{
         )
     }
 }
-var cd = new CanvasCinco();
-function start() {
+var cd = new CanvasCinco();//declaração do objeto de tipo Canvas
+function start() {//função de iniciar(chamada pelo botão)
      clearInterval(refreshIntervalId);
      cd.comeca();
      flag = true;
 }
-function para() {
+function para() {//função de parar(chamada pelo botão)
     clearInterval(refreshIntervalId);
     flag = false;
 }
-function keep(){
+function keep(){//função de continuar(chamada pelo botão)
     if(flag == false){
         cd.continua();
         flag = true;

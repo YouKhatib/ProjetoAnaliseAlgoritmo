@@ -73,7 +73,8 @@ export default class Canvas extends React.Component{
             ponto.setArrayX(x); //passando o valor para o arrayX
             ponto.setArrayY(y);//passando o valor para o arrayY
             ctx.beginPath();//começando o desenho no canvas
-            ctx.arc(x, y, 1, 0, 2 * Math.PI, true);//desenhando no canvas
+            ctx.moveTo(x,y);//inicio da linha no canvas
+            ctx.lineTo(x,200);//final da linha no canvas
             ctx.stroke();//finalizando o desenho no canvas
         }
         final = ponto.getArrayXTam() - 1; //obtendo o valor da variavel final, utilizando para finalização da animação
@@ -148,7 +149,7 @@ export default class Canvas extends React.Component{
     }
 }
 
-var cd = new Canvas();
+var cd = new Canvas();//declaração do objeto de tipo Canvas
 function start() {//função de iniciar(chamada pelo botão)
     clearInterval(refreshIntervalId);
     cd.comeca();
