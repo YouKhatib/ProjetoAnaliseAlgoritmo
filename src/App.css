@@ -255,3 +255,34 @@
   left:0%;
   top:25%
 }
+
+#canvasSete{
+  position:absolute;
+  left:30%;
+  top:5%
+
+}
+
+#iniciaSete{
+  position:absolute;
+  padding: 1px 10px;
+  left:30.5%;
+  top:0.4%
+
+}
+
+#paraSete{
+  position:absolute;
+  padding: 1px 10px;
+  left:34.7%;
+  top:0.4%
+
+}
+
+#continuaSete{
+  position:absolute;
+  padding: 1px 2px;
+  left:38.6%;
+  top:0.4%
+
+}

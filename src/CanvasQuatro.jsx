@@ -101,25 +101,6 @@ export default class canvasQuatro extends React.Component{
         }
       
       }
-      
-    //   heapSort(){
-    //     for(let i = Math.floor(ponto.getArrayXTam()/2) ; i >= 0; i--)
-    //         this.sift(ponto.getArrayX(), ponto.getArrayXTam(), i);
-      
-    //     for(let i = ponto.getArrayXTam() - 1; ponto.getArrayX(i) >= 0; i--){
-    //         ponto.alteraValorX(ponto.getArrayX(0), i);
-    //         this.sift(ponto.getArrayX(), i, 0);
-    //     }
-
-    //     for(let i = Math.floor(ponto.getArrayYTam()/2) ; i >= 0; i--)
-    //         this.sift(ponto.getArrayY(), ponto.getArrayYTam(), i);
-  
-    //     for(let i = ponto.getArrayYTam() - 1; ponto.getArrayY(i) >= 0; i--){
-    //         ponto.alteraValorY(ponto.getArrayY(0), i);
-    //         this.sift(ponto.getArrayY(), i, 0);
-    //     }
-    //   }
-
 
     heapSort(){
         ctx.clearRect(0, 0, 200, 200);            
@@ -139,24 +120,28 @@ export default class canvasQuatro extends React.Component{
             this.sift(ponto.getArrayY(), i, 0);
 
         }
-        
         console.log(v);
+
         for(var m = 0; m < ponto.getArrayXTam(); m++){
             ctx.beginPath();
             ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
             ctx.lineTo(ponto.getArrayX(m),200);
             ctx.stroke();  
+
         }
         
         var contDois = 0;
         for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
             if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
                 contDois++; 
+
             }
+
         }
         
         if(contUm == contDois){
             clearInterval(refreshIntervalId);
+
         }
 
     }
@@ -167,7 +152,7 @@ export default class canvasQuatro extends React.Component{
                 <button id = 'iniciaQuatro' onClick = {start}>Iniciar</button>
                 <button id = 'paraQuatro' onClick = {para}>Parar</button>
                 <button id = 'continuaQuatro' onClick = {keep}>Continuar</button>
-                <canvas  id = 'canvasQuatro' ref={ canvasAnim => this.canvasAnim = canvasAnim}> </canvas>
+                <canvas id = 'canvasQuatro' ref={ canvasAnim => this.canvasAnim = canvasAnim}> </canvas>
             </div>
         )
     }
@@ -180,10 +165,12 @@ function start() {
     flag = true;
     console.log(v)
 }
+
 function para() {
     clearInterval(refreshIntervalId);
     flag = false;
 }
+
 function keep(){
     if(flag == false){
        cd.continua();

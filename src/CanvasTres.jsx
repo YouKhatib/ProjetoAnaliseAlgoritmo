@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Ponto from './Pontos.js';
 
@@ -165,14 +164,6 @@ export default class CanvasTres extends React.Component{
         }
         
         if(contUm == contDois){
-            //ctx.clearRect(0, 0, 200, 200);
-            // for(var m = 0; m < ponto.getArrayXTam(); m++){
-            //     ctx.beginPath();
-            //     ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
-            //     ctx.lineTo(ponto.getArrayX(m),200);
-            //     ctx.strokeStyle = "red";
-            //     ctx.stroke();  
-            // }
             clearInterval(refreshIntervalId);
         }
 
