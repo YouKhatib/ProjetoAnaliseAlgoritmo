@@ -6,6 +6,8 @@ import CanvasTres from './CanvasTres.jsx'
 import CanvasQuatro from './CanvasQuatro'
 import CanvasCinco from './CanvasCinco'
 import CanvasSeis from './CanvasSeis'
+import CanvasSete from './CanvasSete'
+import CanvasOito from './CanvasOito'
 import './App.css';
 
 
@@ -19,6 +21,8 @@ function App() {
         <CanvasQuatro />
         <CanvasCinco />
         <CanvasSeis />
+        <CanvasSete />
+        <CanvasOito />
         <p id='pelements'>Digite a quantidade de elementos:</p>
         <p id='pintervalo'>Digite o intervalo entre cada animação(1000 = 1 segundo):</p>
         <p id='pCarol'> Nome: Carolina Costa - RA: 22.217.011-0</p>

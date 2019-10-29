@@ -221,6 +221,68 @@
   top:36%
 }
 
+#canvasSete{
+  position:absolute;
+  left:60%;
+  top:40.6%
+
+}
+
+#iniciaSete{
+  position:absolute;
+  padding: 1px 10px;
+  left:60.5%;
+  top:36%
+
+}
+
+#paraSete{
+  position:absolute;
+  padding: 1px 10px;
+  left:64.7%;
+  top:36%
+
+}
+
+#continuaSete{
+  position:absolute;
+  padding: 1px 2px;
+  left:68.7%;
+  top:36%
+
+}
+
+#canvasOito{
+  position:absolute;
+  left:60%;
+  top:40.6%
+
+}
+
+#iniciaOito{
+  position:absolute;
+  padding: 1px 10px;
+  left:60.5%;
+  top:36%
+
+}
+
+#paraOito{
+  position:absolute;
+  padding: 1px 10px;
+  left:64.7%;
+  top:36%
+
+}
+
+#continuaOito{
+  position:absolute;
+  padding: 1px 2px;
+  left:68.7%;
+  top:36%
+
+}
+
 #pelements{
   position:absolute;
   padding: 1px 2px;
@@ -254,35 +316,4 @@
   padding: 1px 2px;
   left:0%;
   top:25%
-}
-
-#canvasSete{
-  position:absolute;
-  left:30%;
-  top:5%
-
-}
-
-#iniciaSete{
-  position:absolute;
-  padding: 1px 10px;
-  left:30.5%;
-  top:0.4%
-
-}
-
-#paraSete{
-  position:absolute;
-  padding: 1px 10px;
-  left:34.7%;
-  top:0.4%
-
-}
-
-#continuaSete{
-  position:absolute;
-  padding: 1px 2px;
-  left:38.6%;
-  top:0.4%
-
 }

@@ -82,42 +82,22 @@ export default class canvasQuatro extends React.Component{
 
     }
 
-    sift(v, tam, i){
-        var maior = i;
-        var esq = 2*i + 1;
-        var dir = 2*i + 2;
-      
-        if(esq < tam && v[esq] > v[maior]){
-            maior = esq;
-        }
-        
-        if(dir < tam && v[dir] > v[maior]){
-            maior = dir;
-        }
-      
-        if(maior != i){
-            [v[i], v[maior]] = [v[maior], v[i]];
-            this.sift(v, tam, maior);
-        }
-      
-      }
-
     heapSort(){
         ctx.clearRect(0, 0, 200, 200);            
         for(let i = Math.floor(ponto.getArrayXTam()/2) ; i >= 0; i--)
-            this.sift(ponto.getArrayX(), ponto.getArrayXTam(), i);
+            sift(ponto.getArrayX(), ponto.getArrayXTam(), i);
         
         for(let i = ponto.getArrayXTam() - 1; ponto.getArrayX(i) >= 0; i--){
             ponto.alteraValorX(ponto.getArrayX(0), i)
-            this.sift(ponto.getArrayX(), i, 0);
+            sift(ponto.getArrayX(), i, 0);
         }
         
         for(let i = Math.floor(ponto.getArrayYTam()/2) ; i >= 0; i--)
-            this.sift(ponto.getArrayY(), ponto.getArrayYTam(), i);
+            sift(ponto.getArrayY(), ponto.getArrayYTam(), i);
     
         for(let i = ponto.getArrayYTam() - 1; ponto.getArrayY(i) >= 0; i--){
             ponto.alteraValorY(ponto.getArrayY(0), i)
-            this.sift(ponto.getArrayY(), i, 0);
+            sift(ponto.getArrayY(), i, 0);
 
         }
         console.log(v);
@@ -157,6 +137,26 @@ export default class canvasQuatro extends React.Component{
         )
     }
 }
+
+function sift(v, tam, i){
+    var maior = i;
+    var esq = 2*i + 1;
+    var dir = 2*i + 2;
+  
+    if(esq < tam && v[esq] > v[maior]){
+        maior = esq;
+    }
+    
+    if(dir < tam && v[dir] > v[maior]){
+        maior = dir;
+    }
+  
+    if(maior != i){
+        [v[i], v[maior]] = [v[maior], v[i]];
+        this.sift(v, tam, maior);
+    }
+  
+  }
 
 var cd = new canvasQuatro();
 function start() {
