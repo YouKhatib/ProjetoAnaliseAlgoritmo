@@ -52,7 +52,69 @@ export default class CanvasOito extends Ponto{
     //pancakeSort
     pancakeSort(){//implementação do pancakeSort
         ctx.clearRect(0, 0, 200, 200);
-    
+        for (var i = ponto.getArrayXTam() - 1; i >= 1; i--) {
+            //encontra o maior indice do maior elemento que ainda não foi ordenado
+            var maiorIndice = 0;
+            var maior = ponto.getArrayX(0);
+            for (var j = 1; j <= i; j++) {
+                if (ponto.getArrayX(j) > maior) {
+                    maior = ponto.getArrayX(j);
+                    maiorIndice = j;
+
+                }
+
+            }
+        
+            if (maiorIndice == i) 
+                continue; //elemento no lugar certo
+        
+            var nova_fatia = [];
+        
+            //realiza o flip do maior elemento do vetor para o indice 0
+            if (maiorIndice > 0) {
+                nova_fatia = ponto.slice(0, maiorIndice+1).reverse();
+                for ( j = 0; j <= maiorIndice; j++) 
+                    ponto.ArrayX[j] = nova_fatia[j];
+            }
+        
+            //então realiza o flip do maior elemento para o lugar certo
+            nova_fatia = ponto.slice(0, i+1).reverse();
+            for ( j = 0; j <= i; j++) 
+                ponto.ArrayX[j] = nova_fatia[j];
+        }
+
+        for (var i = ponto.getArrayYTam() - 1; i >= 1; i--) {
+            //encontra o maior indice do maior elemento que ainda não foi ordenado
+            var maiorIndice = 0;
+            var maior = ponto.getArrayY(0);
+            for (var j = 1; j <= i; j++) {
+                if (ponto.getArrayY(j) > maior) {
+                    maior = ponto.getArrayY(j);
+                    maiorIndice = j;
+                }
+            }
+        
+            if (maiorIndice == i) 
+                continue; //elemento no lugar certo
+        
+            var nova_fatia = [];
+        
+            //realiza o flip do maior elemento do vetor para o indice 0
+            if (maiorIndice > 0) {
+                nova_fatia = ponto.slice(0, maiorIndice+1).reverse();
+                for ( j = 0; j <= maiorIndice; j++) 
+                    ponto.ArrayY[j] = nova_fatia[j];
+            }
+        
+            //então realiza o flip do maior elemento para o lugar certo
+            nova_fatia = ponto.slice(0, i+1).reverse();
+            for ( j = 0; j <= i; j++) 
+                ponto.ArrayY[j] = nova_fatia[j];
+
+        }
+        console.log(ponto.getArrayY());
+        console.log(ponto.getArrayX());
+
         for(var m = 0; m < ponto.getArrayXTam(); m++){ //for para a animação
             ctx.beginPath();
             ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
@@ -77,6 +139,7 @@ export default class CanvasOito extends Ponto{
             }
             clearInterval(refreshIntervalId);
         }
+        return ponto.getArrayX();
     }
 
     render(){//função render do React, obtendo o que será renderizado na tela pelo classe.

@@ -19,6 +19,7 @@ export default class CanvasDois extends Ponto{
         this.handleChange = this.handleChange.bind(this);//Funções provenientes do input do usuário
         this.handleSubmit = this.handleSubmit.bind(this);//
     }
+    
     handleChange(event) {//função para input
         this.setState({value: event.target.value});
       }
@@ -29,11 +30,13 @@ export default class CanvasDois extends Ponto{
         localStorage.setItem('Intervalo', intervalo);//salvando o valor entrado pelo usuário para utilização em diferentes classes
         event.preventDefault();
       }
+
     componentWillMount(){//função executada automaticamente pelo react
         this.setState({//declaração do tamanho do canvas
             canvasSize: {canvasWidth: 200, canvasHeight: 200}
         })
     }
+
     componentDidMount(){//função executada automaticamente pelo react
         ctx = this.canvasDois.getContext("2d");//declaração do contexto do canvas
         const {canvasWidth, canvasHeight} = this.state.canvasSize;//declaração do canvas
@@ -54,10 +57,12 @@ export default class CanvasDois extends Ponto{
         this.combSort();//chamo o combSort
         refreshIntervalId = setInterval(this.combSort,intervalo);//chamo o combSort indefinidamente com um intervalo pre-setado
     }
+
     continua(){//função chamada pelo botão de continuar(caso haja alguma pausa)
         this.combSort();
         refreshIntervalId = setInterval(this.combSort,intervalo);
     }
+
     inicializa(){//função que inicializa os elementos
         var cntd = localStorage.getItem('Cntd');//obtenção do valor guardado no navegador
         ctx.strokeStyle = "black";
@@ -76,11 +81,13 @@ export default class CanvasDois extends Ponto{
         
         gap = ponto.getArrayXTam(); //setando o valor inicial de gap(utilizado no combSort)
     }
+
     combSort(){ 
         ctx.clearRect(0, 0, 200, 200); //limpando o canvas
         if(gap <= 1){//caso o gap seja menor que um, seto com um
             gap = 1;
         }
+
         for (let i=0; i < ponto.getArrayXTam() - gap; i++){ //Implementação do CombSort
             if (ponto.getArrayX(i)> ponto.getArrayX(gap + i)){ 
                 let temp =ponto.getArrayX(i);
@@ -93,6 +100,7 @@ export default class CanvasDois extends Ponto{
                 ponto.alteraValorY(temp, gap + i)  
             } 
         }
+
         gap = Math.floor(gap/1.3); //calculo do novo gap
         for(var m = 0; m < ponto.getArrayXTam(); m++){//for para animação
             ctx.beginPath();
@@ -100,12 +108,14 @@ export default class CanvasDois extends Ponto{
             ctx.lineTo(ponto.getArrayX(m),200);
             ctx.stroke();  
         }
+
         var contDois = 0;
         for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){//checagem para ver se o vetor está ordenado
             if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
                 contDois++; 
             }
         }
+
         if(contUm == contDois){//caso o vetor esteja ordenado, pinta ele de vermelho e para de executar a função
             ctx.clearRect(0, 0, 200, 200);
             for(var m = 0; m < ponto.getArrayXTam(); m++){
@@ -118,6 +128,7 @@ export default class CanvasDois extends Ponto{
             clearInterval(refreshIntervalId);
         }
     }
+
     render(){//função render do React, obtendo o que será renderizado na tela pelo classe.
         return(
             <div>
@@ -135,16 +146,19 @@ export default class CanvasDois extends Ponto{
         )
     }
 }
+
 var cd = new CanvasDois();//declaração do objeto de tipo Canvas
 function start() {//função de iniciar(chamada pelo botão)
      clearInterval(refreshIntervalId);
      cd.comeca();
      flag = true;
 }
+
 function para() {//função de parar(chamada pelo botão)
     clearInterval(refreshIntervalId);
     flag = false;
 }
+
 function keep(){//função de continuar(chamada pelo botão)
     if(flag == false){
         cd.continua();
