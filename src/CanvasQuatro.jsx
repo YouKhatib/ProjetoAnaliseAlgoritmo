@@ -83,15 +83,15 @@ export default class canvasQuatro extends React.Component{
     }
 
     heapSort(){
-        ctx.clearRect(0, 0, 200, 200);            
-        for(let i = Math.floor(ponto.getArrayXTam()/2) ; i >= 0; i--)
+        ctx.clearRect(0, 0, 200, 200);            //Math.floor(ponto.getArrayXTam()/2) - 2 ou - 1
+        for(let i = Math.floor(ponto.getArrayXTam()/2) - 2 ; i >= 0; i--)
             sift(ponto.getArrayX(), ponto.getArrayXTam(), i);
         
         for(let i = ponto.getArrayXTam() - 1; ponto.getArrayX(i) >= 0; i--){
             ponto.alteraValorX(ponto.getArrayX(0), i)
             sift(ponto.getArrayX(), i, 0);
         }
-        
+                                    //Math.floor(ponto.getArrayYTam()/2) - 2 ou - 1
         for(let i = Math.floor(ponto.getArrayYTam()/2) ; i >= 0; i--)
             sift(ponto.getArrayY(), ponto.getArrayYTam(), i);
     
@@ -138,6 +138,8 @@ export default class canvasQuatro extends React.Component{
     }
 }
 
+//Fazer um sift p/x e p/y - Hipótese
+//Tranformar as variaveis em variaveis globais - Hipótese
 function sift(v, tam, i){
     var maior = i;
     var esq = 2*i + 1;
