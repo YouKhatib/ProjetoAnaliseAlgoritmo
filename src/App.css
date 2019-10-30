@@ -254,7 +254,7 @@
 
 #canvasOito{
   position:absolute;
-  left:60%;
+  left:75%;
   top:40.6%
 
 }
@@ -262,7 +262,7 @@
 #iniciaOito{
   position:absolute;
   padding: 1px 10px;
-  left:60.5%;
+  left:75.5%;
   top:36%
 
 }
@@ -270,7 +270,7 @@
 #paraOito{
   position:absolute;
   padding: 1px 10px;
-  left:64.7%;
+  left:79.7%;
   top:36%
 
 }
@@ -278,7 +278,7 @@
 #continuaOito{
   position:absolute;
   padding: 1px 2px;
-  left:68.7%;
+  left:83.7%;
   top:36%
 
 }

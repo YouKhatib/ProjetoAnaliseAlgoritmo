@@ -52,7 +52,71 @@ export default class CanvasSete extends Ponto{
     // quickSort
     quickSort(){//implementação do quickSort
         ctx.clearRect(0, 0, 200, 200);
-        
+        function partition(v, l, h) 
+{ 
+    let x = v[h]; 
+    let i = (l - 1); 
+  
+    for (let j = l; j <= h - 1; j++) { 
+        if (v[j] <= x) { 
+            i++; 
+            [v[i], v[j]] = [v[j], v[i]]
+        } 
+    }  
+    [v[i + 1], v[h]] = [v[h], v[i + 1]]
+    return (i + 1); 
+} 
+  
+/* v --> Vetor a ser odernado,  
+l --> Indíce inicial,  
+h --> Indíce final */
+function quickSort(v, l, h) 
+{ 
+    // Cria uma pilha auxiliar 
+    let stack = [h - l + 1]; 
+  
+    // Inicializando o topo da pilha
+    let top = -1; 
+  
+    // Coloca os valores iniciais de l e h na pilha
+    stack[++top] = l; 
+    stack[++top] = h; 
+  
+    // Continua tirando da pilha até ela ficar vazia 
+    while (top >= 0) { 
+        // Tira h e l
+        h = stack[top--]; 
+        l = stack[top--]; 
+  
+        // Coloca o pivô no lugar correto 
+        let p = partition(v, l, h); 
+  
+        // Se há algum elemento no lado esquerdo do vetor, 
+        // este elemento é colocado no lado esquerdo da pilha 
+        if (p - 1 > l) { 
+            stack[++top] = l; 
+            stack[++top] = p - 1; 
+        } 
+  
+        // Se há algum elemento no lado direito do vetor, 
+        // este elemento é colocado no lado direito da pilha 
+        if (p + 1 < h) { 
+            stack[++top] = p + 1; 
+            stack[++top] = h; 
+        } 
+    } 
+} 
+
+
+var a = [];
+for(var i = 0; i < 56; i++){
+  let x = Math.floor(Math.random() * (200 - 1)) + 1;
+  a.push(x);
+}
+
+quickSort(a, 0, a.length - 1)
+console.log(a)
+
 
         for(var m = 0; m < ponto.getArrayXTam(); m++){ //for para a animação
             ctx.beginPath();
