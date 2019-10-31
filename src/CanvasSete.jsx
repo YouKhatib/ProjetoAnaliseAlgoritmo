@@ -6,6 +6,10 @@ var contUm = 0;
 var ctx;
 var refreshIntervalId;
 var ponto = new Ponto();
+var inicioX = 0;
+var inicioY = 0;
+var finalX;
+var finalY;
 var flag;
 var intervalo;//Declaração de variáveis globais
 export default class CanvasSete extends Ponto{
@@ -37,7 +41,8 @@ export default class CanvasSete extends Ponto{
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();//função de inicializar os elementos
-        refreshIntervalId = setInterval(this.quickSort,intervalo);//chamo o quickSort indefinidamente com um intervalo pre-setado
+        //refreshIntervalId = setInterval(this.quickSort,intervalo);//chamo o quickSort indefinidamente com um intervalo pre-setado
+        this.quickSort();
     }
     continua(){//função chamada pelo botão de continuar(caso haja alguma pausa)
         refreshIntervalId = setInterval(this.quickSort,intervalo);
@@ -45,49 +50,83 @@ export default class CanvasSete extends Ponto{
     inicializa(){//função que inicializa os elementos
         intervalo = localStorage.getItem('Intervalo');//obtenção do valor guardado no navegador
         var cntd = localStorage.getItem('Cntd');//obtenção do valor guardado no navegador
+        for(var j = 0; j < cntd; j++){
+            let x = Math.floor(Math.random() * (200 - 1)) + 1; //geração de um valor aleatório de 1 a 200 para guardar no arrayX
+            let  y = Math.floor(Math.random() * (200 - 1)) + 1; //geração de um valor aleatório de 1 a 200 para guardar no arrayY
+            ponto.setArrayX(x);//passando o valor para o arrayX
+            ponto.setArrayY(y);//passando o valor para o arrayY
+        }
         ponto.setArrayCopiaOrdenado();//ordenando a array auxiliar
         contUm = ponto.getArrayXTam();//obtendo o tamanho do contador um
+        finalX = ponto.getArrayXTam() - 1;
+        finalY = ponto.getArrayYTam() - 1;
     }
 
     // quickSort
     quickSort(){//implementação do quickSort
         ctx.clearRect(0, 0, 200, 200);          
-        /* v --> Vetor a ser odernado,  
-        l --> Indíce inicial,  
-        h --> Indíce final */
-        function quickSort(v, l, h) { 
-            // Cria uma pilha auxiliar 
-            let stack = [h - l + 1]; 
-          
-            // Inicializando o topo da pilha
-            let top = -1; 
-          
-            // Coloca os valores iniciais de l e h na pilha
-            stack[++top] = l; 
-            stack[++top] = h; 
-          
-            // Continua tirando da pilha até ela ficar vazia 
-            while (top >= 0) { 
-                // Tira h e l
-                h = stack[top--]; 
-                l = stack[top--]; 
-          
-                // Coloca o pivô no lugar correto 
-                let p = partition(ponto.getArrayX(), l, h); 
-          
-                // Se há algum elemento no lado esquerdo do vetor, 
-                // este elemento é colocado no lado esquerdo da pilha 
-                if (p - 1 > l) { 
-                    stack[++top] = l; 
-                    stack[++top] = p - 1; 
-                } 
-          
-                // Se há algum elemento no lado direito do vetor, 
-                // este elemento é colocado no lado direito da pilha 
-                if (p + 1 < h) { 
-                    stack[++top] = p + 1; 
-                    stack[++top] = h; 
-                } 
+        /* ponto.getArray --> Vetor a ser odernado,  
+        inicio --> Indíce inicial,  
+        final --> Indíce final */ 
+        // Cria uma pilha auxiliar 
+        let stackX = [finalX - inicioX + 1]; 
+        let stackY = [finalY - inicioY + 1];
+        
+        // Inicializando o topo da pilha
+        let topX = -1; 
+        let topY = -1;
+        
+        // Coloca os valores iniciais de inicio e final na pilha
+        stackX[++topX] = inicioX; 
+        stackX[++topX] = finalX; 
+        
+        stackY[++topY] = inicioY; 
+        stackY[++topY] = finalY;
+        
+        // Continua tirando da pilha até ela ficar vazia 
+        while (topX >= 0) { 
+            // Tira final e inicio
+            finalX = stackX[topX--]; 
+            inicioX = stackX[topX--]; 
+        
+            // Coloca o pivô no lugar correto 
+            let p = partition(ponto.getArrayTodaX(), inicioX, finalX); 
+        
+            // Se há algum elemento no lado esquerdo do vetor, 
+            // este elemento é colocado no lado esquerdo da pilha 
+            if (p - 1 > inicioX) { 
+                stackX[++topX] = inicioX; 
+                stackX[++topX] = p - 1; 
+            } 
+        
+            // Se há algum elemento no lado direito do vetor, 
+            // este elemento é colocado no lado direito da pilha 
+            if (p + 1 < finalX) { 
+                stackX[++topX] = p + 1; 
+                stackX[++topX] = finalX; 
+            } 
+        } 
+
+        while (topY >= 0) { 
+            // Tira final e inicio
+            finalY = stackY[topY--]; 
+            inicioY = stackY[topY--]; 
+        
+            // Coloca o pivô no lugar correto 
+            let p = partition(ponto.getArrayTodaY(), inicioY, finalY); 
+        
+            // Se há algum elemento no lado esquerdo do vetor, 
+            // este elemento é colocado no lado esquerdo da pilha 
+            if (p - 1 > inicioY) { 
+                stackY[++topY] = inicioY; 
+                stackY[++topY] = p - 1; 
+            } 
+        
+            // Se há algum elemento no lado direito do vetor, 
+            // este elemento é colocado no lado direito da pilha 
+            if (p + 1 < finalY) { 
+                stackY[++topY] = p + 1; 
+                stackY[++topY] = finalY; 
             } 
         } 
     
@@ -102,8 +141,10 @@ export default class CanvasSete extends Ponto{
         for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
             if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
                 contDois++; 
+
             }
         }
+
         if(contUm == contDois){//caso ordenado, para de chamar a função
             ctx.clearRect(0, 0, 200, 200);
             for(var m = 0; m < ponto.getArrayXTam(); m++){
@@ -112,9 +153,12 @@ export default class CanvasSete extends Ponto{
                 ctx.lineTo(ponto.getArrayX(m),200);
                 ctx.strokeStyle = "red";
                 ctx.stroke();  
+
             }
             clearInterval(refreshIntervalId);
+
         }
+
     }
 
     render(){//função render do React, obtendo o que será renderizado na tela pelo classe.
@@ -126,7 +170,9 @@ export default class CanvasSete extends Ponto{
                 <canvas id='canvasSete' ref={ canvasSete => this.canvasSete = canvasSete}> </canvas>
             </div>
         )
+
     }
+
 }
 
 var cd = new CanvasSete();//declaração do objeto de tipo Canvas
@@ -134,18 +180,22 @@ function start() {//função de iniciar(chamada pelo botão)
      clearInterval(refreshIntervalId);
      cd.comeca();
      flag = true;
+
 }
 
 function para() {//função de parar(chamada pelo botão)
     clearInterval(refreshIntervalId);
     flag = false;
+
 }
 
 function keep(){//função de continuar(chamada pelo botão)
     if(flag == false){
         cd.continua();
         flag = true;
+
     }
+
 }
 
 function partition(v, l, h){ 
@@ -157,7 +207,10 @@ function partition(v, l, h){
             i++; 
             [v[i], v[j]] = [v[j], v[i]]
         } 
+        
     }  
     [v[i + 1], v[h]] = [v[h], v[i + 1]]
+    
     return (i + 1); 
+
 } 

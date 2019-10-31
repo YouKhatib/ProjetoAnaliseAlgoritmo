@@ -82,12 +82,12 @@ export default class CanvasDois extends Ponto{
         gap = ponto.getArrayXTam(); //setando o valor inicial de gap(utilizado no combSort)
     }
 
+
     combSort(){ 
         ctx.clearRect(0, 0, 200, 200); //limpando o canvas
         if(gap <= 1){//caso o gap seja menor que um, seto com um
             gap = 1;
         }
-
         for (let i=0; i < ponto.getArrayXTam() - gap; i++){ //Implementação do CombSort
             if (ponto.getArrayX(i)> ponto.getArrayX(gap + i)){ 
                 let temp =ponto.getArrayX(i);

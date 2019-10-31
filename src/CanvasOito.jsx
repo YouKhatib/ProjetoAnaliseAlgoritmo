@@ -37,7 +37,8 @@ export default class CanvasOito extends Ponto{
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();//função de inicializar os elementos
-        refreshIntervalId = setInterval(this.pancakeSort,intervalo);//chamo o pancakeSort indefinidamente com um intervalo pre-setado
+        //refreshIntervalId = setInterval(this.pancakeSort,intervalo);//chamo o pancakeSort indefinidamente com um intervalo pre-setado
+        this.pancakeSort();
     }
     continua(){//função chamada pelo botão de continuar(caso haja alguma pausa)
         refreshIntervalId = setInterval(this.pancakeSort,intervalo);
@@ -45,8 +46,15 @@ export default class CanvasOito extends Ponto{
     inicializa(){//função que inicializa os elementos
         intervalo = localStorage.getItem('Intervalo');//obtenção do valor guardado no navegador
         var cntd = localStorage.getItem('Cntd');//obtenção do valor guardado no navegador
+        for(var j = 0; j < cntd; j++){
+            let x = Math.floor(Math.random() * (200 - 1)) + 1; //geração de um valor aleatório de 1 a 200 para guardar no arrayX
+            let  y = Math.floor(Math.random() * (200 - 1)) + 1; //geração de um valor aleatório de 1 a 200 para guardar no arrayY
+            ponto.setArrayX(x);//passando o valor para o arrayX
+            ponto.setArrayY(y);//passando o valor para o arrayY
+        }
         ponto.setArrayCopiaOrdenado();//ordenando a array auxiliar
         contUm = ponto.getArrayXTam();//obtendo o tamanho do contador um
+        console.log(ponto.getArrayXTam());
     }
     
     //pancakeSort
@@ -72,15 +80,15 @@ export default class CanvasOito extends Ponto{
         
             //realiza o flip do maior elemento do vetor para o indice 0
             if (maiorIndice > 0) {
-                nova_fatia = ponto.getArrayX().slice(0, maiorIndice+1).reverse();
+                nova_fatia = ponto.getArrayTodaX().slice(0, maiorIndice+1).reverse();
                 for ( j = 0; j <= maiorIndice; j++) 
-                    ponto.alteraValorX(ponto.getArrayX(j), nova_fatia[j])
+                    ponto.alteraValorX(nova_fatia[j], j)
             }
         
             //então realiza o flip do maior elemento para o lugar certo
-            nova_fatia = ponto.getArrayX().slice(0, i+1).reverse();
+            nova_fatia = ponto.getArrayTodaX().slice(0, i+1).reverse();
             for ( j = 0; j <= i; j++) 
-                ponto.alteraValorX(ponto.getArrayX(j), nova_fatia[j])
+                ponto.alteraValorX(nova_fatia[j], j)
         }
 
         for (var i = ponto.getArrayYTam() - 1; i >= 1; i--) {
@@ -101,19 +109,17 @@ export default class CanvasOito extends Ponto{
         
             //realiza o flip do maior elemento do vetor para o indice 0
             if (maiorIndice > 0) {
-                nova_fatia = ponto.getArrayY().slice(0, maiorIndice+1).reverse();
+                nova_fatia = ponto.getArrayTodaY().slice(0, maiorIndice+1).reverse();
                 for ( j = 0; j <= maiorIndice; j++)
-                    ponto.alteraValorY(ponto.getArrayY(j), nova_fatia[j]) 
+                    ponto.alteraValorY(nova_fatia[j], j) 
             }
         
             //então realiza o flip do maior elemento para o lugar certo
-            nova_fatia = ponto.getArrayY().slice(0, i+1).reverse();
+            nova_fatia = ponto.getArrayTodaY().slice(0, i+1).reverse();
             for ( j = 0; j <= i; j++) 
-                ponto.alteraValorY(ponto.getArrayY(j), nova_fatia[j])
+                ponto.alteraValorY(nova_fatia[j], j)
 
         }
-        console.log(ponto.getArrayX());
-        console.log(ponto.getArrayY());
 
         for(var m = 0; m < ponto.getArrayXTam(); m++){ //for para a animação
             ctx.beginPath();
@@ -139,6 +145,7 @@ export default class CanvasOito extends Ponto{
             }
             clearInterval(refreshIntervalId);
         }
+
     }
     
     render(){//função render do React, obtendo o que será renderizado na tela pelo classe.

@@ -126,7 +126,6 @@ export default class Canvas extends React.Component{
             }
         }
         if(contUm == contDois && final == -1){//caso elas estejam ordenadas, o programa para.
-            console.log("parou");
            clearInterval(refreshIntervalId);
         }
     }
