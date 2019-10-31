@@ -72,15 +72,15 @@ export default class CanvasOito extends Ponto{
         
             //realiza o flip do maior elemento do vetor para o indice 0
             if (maiorIndice > 0) {
-                nova_fatia = ponto.slice(0, maiorIndice+1).reverse();
+                nova_fatia = ponto.getArrayX().slice(0, maiorIndice+1).reverse();
                 for ( j = 0; j <= maiorIndice; j++) 
-                    ponto.ArrayX[j] = nova_fatia[j];
+                    ponto.alteraValorX(ponto.getArrayX(j), nova_fatia[j])
             }
         
             //então realiza o flip do maior elemento para o lugar certo
-            nova_fatia = ponto.slice(0, i+1).reverse();
+            nova_fatia = ponto.getArrayX().slice(0, i+1).reverse();
             for ( j = 0; j <= i; j++) 
-                ponto.ArrayX[j] = nova_fatia[j];
+                ponto.alteraValorX(ponto.getArrayX(j), nova_fatia[j])
         }
 
         for (var i = ponto.getArrayYTam() - 1; i >= 1; i--) {
@@ -101,19 +101,19 @@ export default class CanvasOito extends Ponto{
         
             //realiza o flip do maior elemento do vetor para o indice 0
             if (maiorIndice > 0) {
-                nova_fatia = ponto.slice(0, maiorIndice+1).reverse();
-                for ( j = 0; j <= maiorIndice; j++) 
-                    ponto.ArrayY[j] = nova_fatia[j];
+                nova_fatia = ponto.getArrayY().slice(0, maiorIndice+1).reverse();
+                for ( j = 0; j <= maiorIndice; j++)
+                    ponto.alteraValorY(ponto.getArrayY(j), nova_fatia[j]) 
             }
         
             //então realiza o flip do maior elemento para o lugar certo
-            nova_fatia = ponto.slice(0, i+1).reverse();
+            nova_fatia = ponto.getArrayY().slice(0, i+1).reverse();
             for ( j = 0; j <= i; j++) 
-                ponto.ArrayY[j] = nova_fatia[j];
+                ponto.alteraValorY(ponto.getArrayY(j), nova_fatia[j])
 
         }
-        console.log(ponto.getArrayY());
         console.log(ponto.getArrayX());
+        console.log(ponto.getArrayY());
 
         for(var m = 0; m < ponto.getArrayXTam(); m++){ //for para a animação
             ctx.beginPath();
@@ -139,9 +139,8 @@ export default class CanvasOito extends Ponto{
             }
             clearInterval(refreshIntervalId);
         }
-        return ponto.getArrayX();
     }
-
+    
     render(){//função render do React, obtendo o que será renderizado na tela pelo classe.
         return(
             <div>

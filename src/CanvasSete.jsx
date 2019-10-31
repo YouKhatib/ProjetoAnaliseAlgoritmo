@@ -48,7 +48,7 @@ export default class CanvasSete extends Ponto{
         ponto.setArrayCopiaOrdenado();//ordenando a array auxiliar
         contUm = ponto.getArrayXTam();//obtendo o tamanho do contador um
     }
-    
+
     // quickSort
     quickSort(){//implementação do quickSort
         ctx.clearRect(0, 0, 200, 200);          
