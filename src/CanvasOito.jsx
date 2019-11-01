@@ -7,6 +7,7 @@ var ctx;
 var refreshIntervalId;
 var ponto = new Ponto();
 var flag;
+var anim;
 var intervalo;//Declaração de variáveis globais
 export default class CanvasOito extends Ponto{
     constructor(props){//Construtor necessário para o React
@@ -37,8 +38,8 @@ export default class CanvasOito extends Ponto{
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();//função de inicializar os elementos
-        //refreshIntervalId = setInterval(this.pancakeSort,intervalo);//chamo o pancakeSort indefinidamente com um intervalo pre-setado
-        this.pancakeSort();
+        refreshIntervalId = setInterval(this.pancakeSort,intervalo);//chamo o pancakeSort indefinidamente com um intervalo pre-setado
+        //this.pancakeSort();
     }
     continua(){//função chamada pelo botão de continuar(caso haja alguma pausa)
         refreshIntervalId = setInterval(this.pancakeSort,intervalo);
@@ -54,17 +55,18 @@ export default class CanvasOito extends Ponto{
         }
         ponto.setArrayCopiaOrdenado();//ordenando a array auxiliar
         contUm = ponto.getArrayXTam();//obtendo o tamanho do contador um
+        anim = ponto.getArrayXTam() - 1;
         console.log(ponto.getArrayXTam());
     }
     
     //pancakeSort
     pancakeSort(){//implementação do pancakeSort
         ctx.clearRect(0, 0, 200, 200);
-        for (var i = ponto.getArrayXTam() - 1; i >= 1; i--) {
+        //for (var i = ponto.getArrayXTam() - 1; i >= 1; i--) {
             //encontra o maior indice do maior elemento que ainda não foi ordenado
             var maiorIndice = 0;
             var maior = ponto.getArrayX(0);
-            for (var j = 1; j <= i; j++) {
+            for (var j = 1; j <= anim; j++) {
                 if (ponto.getArrayX(j) > maior) {
                     maior = ponto.getArrayX(j);
                     maiorIndice = j;
@@ -73,8 +75,8 @@ export default class CanvasOito extends Ponto{
 
             }
         
-            if (maiorIndice == i) 
-                continue; //elemento no lugar certo
+            // if (maiorIndice == i) 
+            //     continue; //elemento no lugar certo
         
             var nova_fatia = [];
         
@@ -86,24 +88,22 @@ export default class CanvasOito extends Ponto{
             }
         
             //então realiza o flip do maior elemento para o lugar certo
-            nova_fatia = ponto.getArrayTodaX().slice(0, i+1).reverse();
-            for ( j = 0; j <= i; j++) 
+            nova_fatia = ponto.getArrayTodaX().slice(0, anim+1).reverse();
+            for ( j = 0; j <= anim; j++) 
                 ponto.alteraValorX(nova_fatia[j], j)
-        }
 
-        for (var i = ponto.getArrayYTam() - 1; i >= 1; i--) {
-            //encontra o maior indice do maior elemento que ainda não foi ordenado
-            var maiorIndice = 0;
+                var maiorIndice = 0;
             var maior = ponto.getArrayY(0);
-            for (var j = 1; j <= i; j++) {
+            
+            for (var j = 1; j <= anim; j++) {
                 if (ponto.getArrayY(j) > maior) {
                     maior = ponto.getArrayY(j);
                     maiorIndice = j;
                 }
             }
         
-            if (maiorIndice == i) 
-                continue; //elemento no lugar certo
+            // if (maiorIndice == i) 
+            //     continue; //elemento no lugar certo
         
             var nova_fatia = [];
         
@@ -115,19 +115,20 @@ export default class CanvasOito extends Ponto{
             }
         
             //então realiza o flip do maior elemento para o lugar certo
-            nova_fatia = ponto.getArrayTodaY().slice(0, i+1).reverse();
-            for ( j = 0; j <= i; j++) 
+            nova_fatia = ponto.getArrayTodaY().slice(0, anim+1).reverse();
+            for ( j = 0; j <= anim; j++) 
                 ponto.alteraValorY(nova_fatia[j], j)
-
-        }
+            
+                anim--;
 
         for(var m = 0; m < ponto.getArrayXTam(); m++){ //for para a animação
             ctx.beginPath();
             ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
             ctx.lineTo(ponto.getArrayX(m),200);
+            ctx.strokeStyle = "black";
             ctx.stroke();  
         }
-
+        
         var contDois = 0;
         for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
             if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){

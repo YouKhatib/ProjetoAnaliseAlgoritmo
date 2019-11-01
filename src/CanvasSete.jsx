@@ -10,6 +10,10 @@ var inicioX = 0;
 var inicioY = 0;
 var finalX;
 var finalY;
+var topX, topY;
+var stackX = [];
+var stackY = [];
+var p, d;
 var flag;
 var intervalo;//Declaração de variáveis globais
 export default class CanvasSete extends Ponto{
@@ -41,11 +45,11 @@ export default class CanvasSete extends Ponto{
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();//função de inicializar os elementos
-        //refreshIntervalId = setInterval(this.quickSort,intervalo);//chamo o quickSort indefinidamente com um intervalo pre-setado
         this.quickSort();
+        
     }
     continua(){//função chamada pelo botão de continuar(caso haja alguma pausa)
-        refreshIntervalId = setInterval(this.quickSort,intervalo);
+        refreshIntervalId = setInterval(this.animacao,intervalo);
     }
     inicializa(){//função que inicializa os elementos
         intervalo = localStorage.getItem('Intervalo');//obtenção do valor guardado no navegador
@@ -56,10 +60,16 @@ export default class CanvasSete extends Ponto{
             ponto.setArrayX(x);//passando o valor para o arrayX
             ponto.setArrayY(y);//passando o valor para o arrayY
         }
+        stackX = [];
+        stackY = [];
+        p = 0;
+        d = 0;
         ponto.setArrayCopiaOrdenado();//ordenando a array auxiliar
         contUm = ponto.getArrayXTam();//obtendo o tamanho do contador um
         finalX = ponto.getArrayXTam() - 1;
         finalY = ponto.getArrayYTam() - 1;
+        inicioX = 0;
+        inicioY = 0;
     }
 
     // quickSort
@@ -69,12 +79,12 @@ export default class CanvasSete extends Ponto{
         inicio --> Indíce inicial,  
         final --> Indíce final */ 
         // Cria uma pilha auxiliar 
-        let stackX = [finalX - inicioX + 1]; 
-        let stackY = [finalY - inicioY + 1];
+        stackX = [finalX - inicioX + 1]; 
+        stackY = [finalY - inicioY + 1];
         
         // Inicializando o topo da pilha
-        let topX = -1; 
-        let topY = -1;
+        topX = -1; 
+        topY = -1;
         
         // Coloca os valores iniciais de inicio e final na pilha
         stackX[++topX] = inicioX; 
@@ -82,15 +92,20 @@ export default class CanvasSete extends Ponto{
         
         stackY[++topY] = inicioY; 
         stackY[++topY] = finalY;
-        
-        // Continua tirando da pilha até ela ficar vazia 
-        while (topX >= 0) { 
+
+        refreshIntervalId = setInterval(this.animacao,intervalo)
+
+    }
+
+    animacao(){
+        ctx.clearRect(0, 0, 200, 200);
+        //while (topX >= 0) { 
             // Tira final e inicio
             finalX = stackX[topX--]; 
             inicioX = stackX[topX--]; 
         
             // Coloca o pivô no lugar correto 
-            let p = partition(ponto.getArrayTodaX(), inicioX, finalX); 
+            p = partition(ponto.getArrayTodaX(), inicioX, finalX); 
         
             // Se há algum elemento no lado esquerdo do vetor, 
             // este elemento é colocado no lado esquerdo da pilha 
@@ -105,35 +120,36 @@ export default class CanvasSete extends Ponto{
                 stackX[++topX] = p + 1; 
                 stackX[++topX] = finalX; 
             } 
-        } 
+        //} 
 
-        while (topY >= 0) { 
+        //while (topY >= 0) { 
             // Tira final e inicio
             finalY = stackY[topY--]; 
             inicioY = stackY[topY--]; 
         
             // Coloca o pivô no lugar correto 
-            let p = partition(ponto.getArrayTodaY(), inicioY, finalY); 
+            d = partition(ponto.getArrayTodaY(), inicioY, finalY); 
         
             // Se há algum elemento no lado esquerdo do vetor, 
             // este elemento é colocado no lado esquerdo da pilha 
-            if (p - 1 > inicioY) { 
+            if (d - 1 > inicioY) { 
                 stackY[++topY] = inicioY; 
-                stackY[++topY] = p - 1; 
+                stackY[++topY] = d - 1; 
             } 
         
             // Se há algum elemento no lado direito do vetor, 
             // este elemento é colocado no lado direito da pilha 
-            if (p + 1 < finalY) { 
-                stackY[++topY] = p + 1; 
+            if (d + 1 < finalY) { 
+                stackY[++topY] = d + 1; 
                 stackY[++topY] = finalY; 
             } 
-        } 
+        //} 
     
         for(var m = 0; m < ponto.getArrayXTam(); m++){ //for para a animação
             ctx.beginPath();
             ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
             ctx.lineTo(ponto.getArrayX(m),200);
+            ctx.strokeStyle = "black";
             ctx.stroke();  
         }
 
@@ -158,7 +174,6 @@ export default class CanvasSete extends Ponto{
             clearInterval(refreshIntervalId);
 
         }
-
     }
 
     render(){//função render do React, obtendo o que será renderizado na tela pelo classe.

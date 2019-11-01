@@ -10,6 +10,12 @@ var ponto = new Ponto();
 var cntd;
 var indice = 0;
 var v = [];
+var s = [];
+var metXUm;
+var metXDois;
+var metYUm;
+var metYDois;
+var intervalo;
 export default class canvasQuatro extends React.Component{
     constructor(props){
         super(props)
@@ -53,8 +59,8 @@ export default class canvasQuatro extends React.Component{
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();
-        this.heapSort();
-        refreshIntervalId = setInterval(this.heapSort,150);
+        //this.heapSort();
+        //refreshIntervalId = setInterval(this.heapSort,150);
     }
 
     continua(){
@@ -64,6 +70,7 @@ export default class canvasQuatro extends React.Component{
 
     inicializa(){
         var cntd = localStorage.getItem('Cntd');
+        intervalo = localStorage.getItem('Intervalo');//obtenção do valor guardado no navegador
         ctx.strokeStyle = "black";
         for(var j = 0; j < cntd; j++){
             let x = Math.floor(Math.random() * (200 - 1)) + 1; 
@@ -71,6 +78,7 @@ export default class canvasQuatro extends React.Component{
             ponto.setArrayX(x);
             ponto.setArrayY(y);
             v.push(x);
+            s.push(y)
             ctx.beginPath();
             ctx.moveTo(x,y);
             ctx.lineTo(x,200);
@@ -82,49 +90,61 @@ export default class canvasQuatro extends React.Component{
 
     }
 
+    ordena(){
+        for(let i = Math.floor(v.length/2) - 1; i >= 0; i--)
+        sift(v, v.length, i);
+
+        for(let i = Math.floor(s.length/2) - 1; i >= 0; i--)
+        sift(s, s.length, i);
+    }
+
     heapSort(){
-        ctx.clearRect(0, 0, 200, 200);            //Math.floor(ponto.getArrayXTam()/2) - 2 ou - 1
-        for(let i = Math.floor(ponto.getArrayXTam()/2) - 2 ; i >= 0; i--)
-            sift(ponto.getArrayX(), ponto.getArrayXTam(), i);
+        ctx.clearRect(0, 0, 200, 200);
+        // sift(v, v.length, metXUm);
+        // metXUm--;
+      
+        [v[0], v[metXDois]] = [v[metXDois], v[0]];
+        sift(v, metXDois, 0);
+        metXDois--;
         
-        for(let i = ponto.getArrayXTam() - 1; ponto.getArrayX(i) >= 0; i--){
-            ponto.alteraValorX(ponto.getArrayX(0), i)
-            sift(ponto.getArrayX(), i, 0);
-        }
-                                    //Math.floor(ponto.getArrayYTam()/2) - 2 ou - 1
-        for(let i = Math.floor(ponto.getArrayYTam()/2) ; i >= 0; i--)
-            sift(ponto.getArrayY(), ponto.getArrayYTam(), i);
-    
-        for(let i = ponto.getArrayYTam() - 1; ponto.getArrayY(i) >= 0; i--){
-            ponto.alteraValorY(ponto.getArrayY(0), i)
-            sift(ponto.getArrayY(), i, 0);
+        // sift(s, s.length, metYUm);
+        // metYUm--;
 
-        }
-        console.log(v);
+        [s[0], s[metYDois]] = [s[metYDois], s[0]];
+        sift(s, metYDois, 0);
+        metYDois--;
+        
 
-        for(var m = 0; m < ponto.getArrayXTam(); m++){
+        for(var m = 0; m < ponto.getArrayXTam(); m++){ //for para a animação
             ctx.beginPath();
-            ctx.moveTo(ponto.getArrayX(m),ponto.getArrayY(m));
-            ctx.lineTo(ponto.getArrayX(m),200);
+            ctx.moveTo(v[m],s[m]);
+            ctx.lineTo(v[m],200);
+            ctx.strokeStyle = "black";
             ctx.stroke();  
-
         }
-        
+
         var contDois = 0;
         for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){
-            if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){
+            if(v[i] == ponto.getValCopiaX(i) && s[i] == ponto.getValCopiaY(i)){
                 contDois++; 
-
             }
-
         }
-        
-        if(contUm == contDois){
+
+        if(contUm == contDois){//caso ordenado, para de chamar a função
+            ctx.clearRect(0, 0, 200, 200);
+            for(var m = 0; m < ponto.getArrayXTam(); m++){
+                ctx.beginPath();
+                ctx.moveTo(v[m],s[m]);
+                ctx.lineTo(v[m],200);
+                ctx.strokeStyle = "red";
+                ctx.stroke();  
+            }
             clearInterval(refreshIntervalId);
-
         }
 
-    }
+    
+      }
+
 
     render(){
         return(
@@ -155,17 +175,30 @@ function sift(v, tam, i){
   
     if(maior != i){
         [v[i], v[maior]] = [v[maior], v[i]];
-        this.sift(v, tam, maior);
+        sift(v, tam, maior);
     }
   
   }
 
+
+
 var cd = new canvasQuatro();
 function start() {
     clearInterval(refreshIntervalId);
+    v = [];
+    s = [];
     cd.comeca();
     flag = true;
-    console.log(v)
+    //cd.heapSort();
+    // console.log(v);
+    // console.log(s);
+    metXUm = Math.floor(v.length/2) - 2;
+    metXDois = Math.floor(v.length - 1);
+    metYDois = Math.floor(s.length/2) - 2;
+    metYDois = Math.floor(v.length - 1);
+    cd.ordena();
+    refreshIntervalId = setInterval(cd.heapSort,intervalo);
+
 }
 
 function para() {
