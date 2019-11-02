@@ -1,7 +1,9 @@
 #Alunos
 
 Carolina Almeida Costa R.A.: 22.217.011-0
+
 Kayke Bonafé de Luca R.A.: 22.217.003-7
+
 Youssef Ali El Khatib R.A.: 22.217.034-2
 
 Trabalho da disciplina Análise e Complexidade de Algoritmos - CC5661 - Centro Universitário FEI
