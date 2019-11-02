@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import Ponto from './Pontos.js';
 
+
+//Declaração de variáveis globais
 var aux = 0;
 var comeco;
 var ctx;
@@ -14,6 +16,7 @@ var intervalo;
 var a = [];
 var b = [];
 var x = 1;
+
 export default class CanvasDez extends React.Component{
     constructor(props){
         super(props)
@@ -27,39 +30,39 @@ export default class CanvasDez extends React.Component{
 
     }
 
-    handleChange(event) {
+    handleChange(event) { //Função para input
         this.setState({value: event.target.value});
 
       }
     
-    handleSubmit(event) {
-        cntd = parseInt(this.state.value);
+    handleSubmit(event) { //Função para input
+        cntd = parseInt(this.state.value); //Transformando o valor entrado pelo usuário para int
         event.preventDefault();
 
     }
 
-    componentWillMount(){
-        this.setState({
+    componentWillMount(){ //Função executada automaticamente pelo react
+        this.setState({ //Declaração do tamanho do canvas
             canvasSize: {canvasWidth: 200, canvasHeight: 200}
         })
 
     }
 
-    componentDidMount(){
-        ctx = this.canvasAnim.getContext("2d");
-        const {canvasWidth, canvasHeight} = this.state.canvasSize;
-        this.canvasAnim.width = canvasWidth;
-        this.canvasAnim.height = canvasHeight;
+    componentDidMount(){//Função executada automaticamente pelo react
+        ctx = this.canvasAnim.getContext("2d"); //Declaração do contexto do canvas
+        const {canvasWidth, canvasHeight} = this.state.canvasSize; //Declaração do canvas
+        this.canvasAnim.width = canvasWidth; //Setando a largura do canvas
+        this.canvasAnim.height = canvasHeight; //Setando a altura do canvas
 
         ctx.font = "10px Arial";
         ctx.fillText("InsertionSort",141,10);
 
     }
 
-    comeca(){
-        intervalo = localStorage.getItem('Intervalo');
-        ponto.zeraArrays();
-        ponto.zeraArraysCopia();
+    comeca(){ //Função de inicio (chamada pelo botão iniciar)
+        intervalo = localStorage.getItem('Intervalo');//Pego o valor salvo no navegador
+        ponto.zeraArrays();//Zero as arrays caso haja algum valor nelas
+        ponto.zeraArraysCopia(); //Zero as arrays auxiliares caso haja algum valor nelas
         contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
         ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
         this.inicializa();
@@ -67,7 +70,8 @@ export default class CanvasDez extends React.Component{
 
     }
 
-    continua(){
+    continua(){ //Função chamada pelo botão de continuar(caso haja alguma pausa)
+        this.insertionSort();
         refreshIntervalId = setInterval(this.insertionSort,intervalo);
 
     }
@@ -98,7 +102,7 @@ export default class CanvasDez extends React.Component{
 
     }
 
-    
+    //InsertionSort
     insertionSort() {
         ctx.clearRect(0, 0, 200, 200);
         var d, t, e, u;
@@ -158,8 +162,8 @@ export default class CanvasDez extends React.Component{
     }
 }
 
-var cd = new CanvasDez();
-function start() {
+var cd = new CanvasDez(); //Declaração do objeto de tipo Canvas
+function start() {//Função de iniciar(chamada pelo botão)
     clearInterval(refreshIntervalId);
     cd.comeca();
     refreshIntervalId = setInterval(cd.insertionSort,intervalo);
