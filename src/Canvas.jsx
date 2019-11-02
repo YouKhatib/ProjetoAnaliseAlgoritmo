@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Ponto from './Pontos.js';
 
+//Declaração de variáveis globais
 var ctx;
 var contUm = 0;
 var flag = true;
@@ -9,7 +10,7 @@ var intervalo;
 var refreshIntervalId;
 var ponto = new Ponto();
 var cntd;
-var final; //Declaração de variáveis globais
+var final; 
 export default class Canvas extends React.Component{
     constructor(props){ //Construtor necessário para o React
         super(props)
@@ -46,7 +47,7 @@ export default class Canvas extends React.Component{
         this.canvasAnim.height = canvasHeight;//setando a altura do canvas
 
         ctx.font = "10px Arial"; //fonte do texto
-        ctx.fillText("BubbleSort",2,10);//texto a ser escrito dentro do canvas
+        ctx.fillText("BubbleSort",148,10);//texto a ser escrito dentro do canvas
     }
 
     comeca(){//função de inicio (chamada pelo botão iniciar)
@@ -119,6 +120,9 @@ export default class Canvas extends React.Component{
                 }
             }
         }
+        ctx.font = "10px Arial"; 
+        ctx.fillText("BubbleSort",148,10);
+
         var contDois = 0;//zero o contador dois para cada loop começar de 0
         for(var i = 0; i < ponto.getArrayCopiaXTam(); i++){//for que checa se as arrays ja estão ordenadas
             if(ponto.getArrayX(i) == ponto.getValCopiaX(i) && ponto.getArrayY(i) == ponto.getValCopiaY(i)){

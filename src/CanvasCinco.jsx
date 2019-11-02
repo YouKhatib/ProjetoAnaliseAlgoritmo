@@ -14,13 +14,18 @@ export default class CanvasCinco extends Ponto{
         this.state = {
             arrayX: [],
             arrayY: [],
+            
         }
     }
+
     componentWillMount(){//função executada automaticamente pelo react
         this.setState({//declaração do tamanho do canvas
             canvasSize: {canvasWidth: 200, canvasHeight: 200}
+
         })
+
     }
+
     componentDidMount(){//função executada automaticamente pelo react
         ctx = this.canvasCinco.getContext("2d");//declaração do contexto do canvas
         const {canvasWidth, canvasHeight} = this.state.canvasSize;//declaração do canvas
@@ -28,7 +33,8 @@ export default class CanvasCinco extends Ponto{
         this.canvasCinco.height = canvasHeight;//setando a altura do canvas
 
         ctx.font = "10px Arial";//fonte do texto
-        ctx.fillText("CountingSort",2,10);//texto a ser escrito dentro do canvas
+        ctx.fillText("CountingSort",139,10);//texto a ser escrito dentro do canvas
+   
     }
 
     comeca(){//função de inicio (chamada pelo botão iniciar)
@@ -39,10 +45,14 @@ export default class CanvasCinco extends Ponto{
         this.inicializa();//função de inicializar os elementos
         this.countingSort();//chamo o countingSort
         refreshIntervalId = setInterval(this.animacao,5);//chamo a função de animacao indefinidamente com um intervalo pre-setado
+    
     }
+
     continua(){//função chamada pelo botão de continuar(caso haja alguma pausa)
         refreshIntervalId = setInterval(this.animacao,5);
+
     }
+
     inicializa(){//função que inicializa os elementos
         var cntd = localStorage.getItem('Cntd');//obtenção do valor guardado no navegador
         ds = 200; //declaração do valor utilizado para a animação do countingSort
@@ -59,7 +69,9 @@ export default class CanvasCinco extends Ponto{
         }
         ponto.setArrayCopiaOrdenado();//ordenando a array auxiliar
         contUm = ponto.getArrayXTam();//obtendo o tamanho do contador um
+
     }
+
     countingSort (){//Implementação do CountingSort
         var tamanhoX = ponto.getArrayXTam();
         var tamanhoY = ponto.getArrayXTam();
@@ -72,35 +84,51 @@ export default class CanvasCinco extends Ponto{
         for(var i = 0; i < tamanhoX; i++){
             if(ponto.getArrayX(i) > maiorX)
                 maiorX = ponto.getArrayX(i);
+
         }
+
         for(var i = 0; i < tamanhoY; i++){
             if(ponto.getArrayY(i) > maiorY)
                 maiorY = ponto.getArrayY(i);
+
         }
+
         for (var i = 0; i <= maiorX; i++) {
             countX[i] = 0;
+
         }
+
         for (var i = 0; i <= maiorY; i++) {
             countY[i] = 0;
+
         }
+
         for (var i = 0; i < tamanhoX; i++) {
             countX[ponto.getArrayX(i)] += 1;
             countY[ponto.getArrayY(i)] += 1;
+
         }
+
          for (var i = 0; i <= maiorX; i++) {
             while (countX[i] > 0) {
                 ponto.alteraValorX(i, j);
                 j++;
-                countX[i]--;        
+                countX[i]--;  
+                      
             }
+
         }
+
         for (var i = 0; i <= maiorY; i++) {
             while (countY[i] > 0) {
                 ponto.alteraValorY(i, x);
                 x++;
                 countY[i]--;
-            }              
+
+            }   
+
         }
+
     }
 
     animacao(){//função para animação de checagem da array
@@ -114,8 +142,11 @@ export default class CanvasCinco extends Ponto{
                 if(m == 200){
                     console.log(ponto.getArrayTodaX());
                     clearInterval(refreshIntervalId); 
+                
                 } 
+
             }
+
         }else{
             ctx.beginPath();
             ctx.moveTo(ds,0);
@@ -123,7 +154,11 @@ export default class CanvasCinco extends Ponto{
             ctx.strokeStyle = "red";
             ctx.stroke();  
             ds--;
+
         }
+        ctx.font = "10px Arial";
+        ctx.fillText("CountingSort",139,10);
+
     }
 
     render(){//função render do React, obtendo o que será renderizado na tela pelo classe.
@@ -134,22 +169,32 @@ export default class CanvasCinco extends Ponto{
                 <button id='continuaCinco' onClick={keep}>Continuar</button>
                 <canvas id='canvasCinco' ref={ canvasCinco => this.canvasCinco = canvasCinco}> </canvas>
             </div>
+
         )
+
     }
+
 }
+
 var cd = new CanvasCinco();//declaração do objeto de tipo Canvas
 function start() {//função de iniciar(chamada pelo botão)
      clearInterval(refreshIntervalId);
      cd.comeca();
      flag = true;
+
 }
+
 function para() {//função de parar(chamada pelo botão)
     clearInterval(refreshIntervalId);
     flag = false;
+
 }
+
 function keep(){//função de continuar(chamada pelo botão)
     if(flag == false){
         cd.continua();
         flag = true;
+
     }
+
 }

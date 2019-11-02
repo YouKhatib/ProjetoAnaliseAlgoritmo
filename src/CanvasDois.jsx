@@ -44,7 +44,7 @@ export default class CanvasDois extends Ponto{
         this.canvasDois.height = canvasHeight;//setando a altura do canvas
 
         ctx.font = "10px Arial";//fonte do texto
-        ctx.fillText("CombSort",2,10);//texto a ser escrito dentro do canvas
+        ctx.fillText("CombSort",152,10);//texto a ser escrito dentro do canvas
     }
 
     comeca(){//função de inicio (chamada pelo botão iniciar)
@@ -127,6 +127,9 @@ export default class CanvasDois extends Ponto{
             }
             clearInterval(refreshIntervalId);
         }
+        ctx.font = "10px Arial";
+        ctx.fillText("CombSort",152,10);
+
     }
 
     render(){//função render do React, obtendo o que será renderizado na tela pelo classe.
