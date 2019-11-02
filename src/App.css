@@ -317,3 +317,65 @@
   left:0%;
   top:25%
 }
+
+#canvasNove{
+  position:absolute;
+  left:15%;
+  top:40.6%
+
+}
+
+#iniciaNove{
+  position:absolute;
+  padding: 1px 10px;
+  left:15.5%;
+  top:36%
+
+}
+
+#paraNove{
+  position:absolute;
+  padding: 1px 10px;
+  left:19.7%;
+  top:36%
+
+}
+
+#continuaNove{
+  position:absolute;
+  padding: 1px 2px;
+  left:23.7%;
+  top:36%
+
+}
+
+#canvasDez{
+  position:absolute;
+  left:0%;
+  top:40.6%
+
+}
+
+#iniciaDez{
+  position:absolute;
+  padding: 1px 10px;
+  left:0.5%;
+  top:36%
+
+}
+
+#paraDez{
+  position:absolute;
+  padding: 1px 10px;
+  left:4.7%;
+  top:36%
+
+}
+
+#continuaDez{
+  position:absolute;
+  padding: 1px 2px;
+  left:8.7%;
+  top:36%
+
+}
