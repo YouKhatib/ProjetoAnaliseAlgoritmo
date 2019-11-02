@@ -1,72 +1,17 @@
-# Favor informar NOME e RA do aluno
+#Alunos
+Carolina Almeida Costa R.A.: 22.217.011-0
+Kayke Bonafé de Luca R.A.: 22.217.003-7
+Youssef Ali El Khatib R.A.: 22.217.034-2
 
+Trabalho da disciplina Análise e Complexidade de Algoritmos - CC5661 - Centro Universitário FEI
 
+O trabalho em questão foi desenvolvido em React-App e consiste em uma visualização gráfica do funcionamento de alguns algoritmos de ordenação vistos em aula.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#Instalação e execução
+Para instalar e executar, baixe/clone este repositório, e em seguida, caso não tenha o React instalado em sua máquina, nem o NodeJS, a instalação de ambos se faz necessária.
 
-## Available Scripts
+Para instalar o NodeJS, acesse o site https://nodejs.org/en/download/, selecione a opção que satisfaz seu sistema operacional, baixe-o e instale-o. Após instalar o Node JS, abra o terminal de sua máquina é digite o seguinte comando: npm install -g create-react-app e aguarde a instalação.
 
-In the project directory, you can run:
+Uma vez que tudo estiver instalado, acesse a pasta do repositório em seu computador via linha de comando e digite npm install e aguarde a instalação. Acabada a instalação do React, digite npm start.
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify.
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Para executar o programa outras vezes, apenas acesse a pasta via terminal e digite npm start.
