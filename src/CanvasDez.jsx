@@ -18,7 +18,7 @@ var b = [];
 var x = 1;
 
 export default class CanvasDez extends React.Component{
-    constructor(props){
+    constructor(props){//Construtor necessário para o React
         super(props)
         this.state = {
             arrayX: [],
@@ -44,6 +44,7 @@ export default class CanvasDez extends React.Component{
     componentWillMount(){ //Função executada automaticamente pelo react
         this.setState({ //Declaração do tamanho do canvas
             canvasSize: {canvasWidth: 200, canvasHeight: 200}
+            
         })
 
     }
@@ -54,8 +55,8 @@ export default class CanvasDez extends React.Component{
         this.canvasAnim.width = canvasWidth; //Setando a largura do canvas
         this.canvasAnim.height = canvasHeight; //Setando a altura do canvas
 
-        ctx.font = "10px Arial";
-        ctx.fillText("InsertionSort",141,10);
+        ctx.font = "10px Arial";//Fonte do texto
+        ctx.fillText("InsertionSort",141,10);//Texto a ser escrito dentro do canvas
 
     }
 
@@ -76,29 +77,29 @@ export default class CanvasDez extends React.Component{
 
     }
 
-    inicializa(){
+    inicializa(){//Função que inicializa os elementos
         x = 1;
         comeco = 1;
         aux = 0;
         a = [];
         b = []
-        var cntd = localStorage.getItem('Cntd');
+        var cntd = localStorage.getItem('Cntd');//Obtenção do valor guardado no navegador
         ctx.strokeStyle = "black";
         for(var j = 0; j < cntd; j++){
-            let x = Math.floor(Math.random() * (200 - 1)) + 1; 
-            let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
+            let x = Math.floor(Math.random() * (200 - 1)) + 1;//Geração de um valor aleatório de 1 a 200 para guardar no arrayX
+            let  y = Math.floor(Math.random() * (200 - 1)) + 1;//Geração de um valor aleatório de 1 a 200 para guardar no arrayY
             a.push(x);
             b.push(y)
-            ponto.setArrayX(x);
-            ponto.setArrayY(y);
+            ponto.setArrayX(x);//Passando o valor para o arrayX
+            ponto.setArrayY(y);//Passando o valor para o arrayY
             ctx.beginPath();
             ctx.moveTo(x,y);
             ctx.lineTo(x,200);
             ctx.stroke();
 
         }
-        ponto.setArrayCopiaOrdenado();
-        contUm = ponto.getArrayXTam();
+        ponto.setArrayCopiaOrdenado();//Ordenando a array auxiliar
+        contUm = ponto.getArrayXTam();//Obtendo o tamanho do contador um
 
     }
 
@@ -112,30 +113,37 @@ export default class CanvasDez extends React.Component{
                 a[d] = a[d-1];
                 a[d-1] = t;
                 d--;
+
             }
             e = x;
+            
             while (e >0 && b[e] < b[e-1]){
                 u = b[e];
                 b[e] = b[e-1];
                 b[e-1] = u;
                 e--;
+            
             }
             x++;
              
-            for(var m = 0; m < ponto.getArrayXTam(); m++){//for para animação
+            for(var m = 0; m < ponto.getArrayXTam(); m++){//For para animação
                 ctx.beginPath();
                 ctx.moveTo(a[m],b[m]);
                 ctx.lineTo(a[m],200);
                 ctx.stroke();  
+            
             }
             var contDois = 0;
-        for(var i = 0; i < a.length; i++){//checagem para ver se o vetor está ordenado
+        for(var i = 0; i < a.length; i++){//Checagem para ver se o vetor está ordenado
             if(a[i] == ponto.getValCopiaX(i) && b[i] == ponto.getValCopiaY(i)){
                 contDois++; 
+
             }
+
+
         }
 
-        if(contUm == contDois){//caso o vetor esteja ordenado, pinta ele de vermelho e para de executar a função
+        if(contUm == contDois){//Caso o vetor esteja ordenado, pinta ele de vermelho e para de executar a função
             ctx.clearRect(0, 0, 200, 200);
             for(var m = 0; m < ponto.getArrayXTam(); m++){
                 ctx.beginPath();
@@ -143,14 +151,17 @@ export default class CanvasDez extends React.Component{
                 ctx.lineTo(a[m],200);
                 ctx.strokeStyle = "red";
                 ctx.stroke();  
+
             }
             clearInterval(refreshIntervalId);
+
         }
         ctx.font = "10px Arial";
         ctx.fillText("InsertionSort",141,10);
 
     }
-    render(){
+
+    render(){//Função render do React, obtendo o que será renderizado na tela pelo classe.
         return(
             <div>
                 <button id = 'iniciaDez' onClick = {start}>Iniciar</button>
@@ -158,8 +169,13 @@ export default class CanvasDez extends React.Component{
                 <button id = 'continuaDez' onClick = {keep}>Continuar</button>
                 <canvas  id = 'canvasDez' ref={ canvasAnim => this.canvasAnim = canvasAnim}> </canvas>
             </div>
+
         )
+
+
     }
+
+
 }
 
 var cd = new CanvasDez(); //Declaração do objeto de tipo Canvas
@@ -170,16 +186,20 @@ function start() {//Função de iniciar(chamada pelo botão)
     flag = true;
 
 }
-function para() {
+
+function para() {//Função de parar(chamada pelo botão)
     clearInterval(refreshIntervalId);
     flag = false;
 
 }
-function keep(){
+
+function keep(){//Função de continuar(chamada pelo botão)
     if(flag == false){
        cd.continua();
        flag = true;
 
+
     }
+
     
 }

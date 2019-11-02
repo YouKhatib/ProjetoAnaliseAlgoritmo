@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import Ponto from './Pontos.js';
+
+//Declaração de variáveis globais
 var v = [];
 var s = [];
 var aux = 0;
@@ -14,65 +16,67 @@ var cntd;
 var intervalo;
 var curr_sizeX = 1; 
 var curr_sizeY = 1; 
-export default class CanvasNove extends React.Component{
-    constructor(props){
+export default class CanvasNove extends React.Component{//Declaração de variáveis globais
+    constructor(props){//Construtor necessário para o React
         super(props)
         this.state = {
             arrayX: [],
             arrayY: [],
             
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);//Funções provenientes do input do usuário
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
 
-    handleChange(event) {
+    handleChange(event) {//Função para input
         this.setState({value: event.target.value});
 
-      }
+    }
     
-    handleSubmit(event) {
-        cntd = parseInt(this.state.value);
+    handleSubmit(event) {//Função para input
+        cntd = parseInt(this.state.value);//Transformando o valor entrado pelo usuário para int
         event.preventDefault();
 
     }
 
-    componentWillMount(){
-        this.setState({
+    componentWillMount(){//Função executada automaticamente pelo react
+        this.setState({//Declaração do tamanho do canvas
             canvasSize: {canvasWidth: 200, canvasHeight: 200}
+
         })
 
     }
 
-    componentDidMount(){
-        ctx = this.canvasAnim.getContext("2d");
-        const {canvasWidth, canvasHeight} = this.state.canvasSize;
-        this.canvasAnim.width = canvasWidth;
-        this.canvasAnim.height = canvasHeight;
+    componentDidMount(){//Função executada automaticamente pelo react
+        ctx = this.canvasAnim.getContext("2d");//Declaração do contexto do canvas
+        const {canvasWidth, canvasHeight} = this.state.canvasSize;//Declaração do canvas
+        this.canvasAnim.width = canvasWidth;//Setando a largura do canvas
+        this.canvasAnim.height = canvasHeight;//Setando a altura do canvas
 
-        ctx.font = "10px Arial";
-        ctx.fillText("MergeSort",150,10);
-
-    }
-
-    comeca(){
-        intervalo = localStorage.getItem('Intervalo');
-        ponto.zeraArrays();
-        ponto.zeraArraysCopia();
-        contUm = 0;//zerando o contador utilizado para checar se o vetor já está ordenado;
-        ctx.clearRect(0, 0, 200, 200);//realizando a limpeza do canvas;
-        this.inicializa();
-
+        ctx.font = "10px Arial";//Fonte do texto
+        ctx.fillText("MergeSort",150,10);//Fonte do texto
 
     }
 
-    continua(){
+    comeca(){//Função de inicio (chamada pelo botão iniciar)
+        intervalo = localStorage.getItem('Intervalo');//Pego o valor salvo no navegador
+        ponto.zeraArrays();//Zero as arrays caso haja algum valor nelas
+        ponto.zeraArrays();//Zero as arrays auxiliares caso haja algum valor nelas
+        ponto.zeraArraysCopia();//Zerando o contador utilizado para checar se o vetor já está ordenado;
+        contUm = 0;//Zerando o contador utilizado para checar se o vetor já está ordenado;
+        ctx.clearRect(0, 0, 200, 200);//Realizando a limpeza do canvas;
+        this.inicializa();//Função de inicializar os elementos
+
+
+    }
+
+    continua(){//Função chamada pelo botão de continuar(caso haja alguma pausa)
         refreshIntervalId = setInterval(this.mergeSort,intervalo);
 
     }
 
-    inicializa(){
+    inicializa(){//Função que inicializa os elementos
         ctx.clearRect(0, 0, 200, 200);
         v = [];
         s = [];
@@ -80,102 +84,84 @@ export default class CanvasNove extends React.Component{
         curr_sizeY = 1; 
         comeco = 1;
         aux = 0;
-        var cntd = localStorage.getItem('Cntd');
+        var cntd = localStorage.getItem('Cntd');//Obtenção do valor guardado no navegador
         ctx.strokeStyle = "black";
         for(var j = 0; j < cntd; j++){
-            let x = Math.floor(Math.random() * (200 - 1)) + 1; 
-            let  y = Math.floor(Math.random() * (200 - 1)) + 1; 
-            ponto.setArrayX(x);
-            ponto.setArrayY(y);
-            v.push(x);
-            s.push(y);
-            ctx.beginPath();
-            ctx.moveTo(x,y);
-            ctx.lineTo(x,200);
-            ctx.stroke();
+            let x = Math.floor(Math.random() * (200 - 1)) + 1;//Geração de um valor aleatório de 1 a 200 para guardar no arrayX
+            let  y = Math.floor(Math.random() * (200 - 1)) + 1;//Geração de um valor aleatório de 1 a 200 para guardar no arrayY
+            ponto.setArrayX(x);//Passando o valor para o arrayX
+            ponto.setArrayY(y);//Passando o valor para o arrayY
+            v.push(x);//Inserindo os valores no v
+            s.push(y);//Inserindo os valores no s
+            ctx.beginPath();//Começando o desenho no canvas
+            ctx.moveTo(x,y);//Inicio da linha no canvas
+            ctx.lineTo(x,200);//Final da linha no canvas
+            ctx.stroke();//Finalizando o desenho no canvas
 
         }
-        ponto.setArrayCopiaOrdenado();
-        contUm = ponto.getArrayXTam();
+        ponto.setArrayCopiaOrdenado();//Ordenando a array auxiliar
+        contUm = ponto.getArrayXTam();//Obtendo o tamanho do contador um
 
     }
 
-    // Utility function to find minimum of two integers 
+    //MergeSort
+    mergeSort() { 
+        ctx.clearRect(0, 0, 200, 200);//Limpando o canvas
+        var left_startX;
+        var left_startY; 
+        for (left_startX=0; left_startX<v.length-1; left_startX += 2*curr_sizeX){ 
+            var mid = min(left_startX + curr_sizeX - 1, v.length-1);
+            var right_endX = min(left_startX + 2*curr_sizeX - 1, v.length-1);
+            merge(v, left_startX, mid, right_endX); 
 
+        } 
 
+        for (left_startY=0; left_startY<s.length-1; left_startY += 2*curr_sizeY) { 
+            var mid = min(left_startY + curr_sizeY - 1, s.length-1);
+            var right_end = min(left_startY + 2*curr_sizeY - 1, s.length-1);
+            merge(s, left_startY, mid, right_end); 
 
-/* Iterative mergesort function to sort arr[0...n-1] */
- mergeSort() 
-{ 
-    ctx.clearRect(0, 0, 200, 200);
-  // For current size of subarrays to be merged 
-                 // curr_size varies from 1 to n/2 
-    var left_startX;
-    var left_startY; // For picking starting index of left subarray 
-                 // to be merged 
+        } 
 
- // Merge subarrays in bottom up manner.  First merge subarrays of 
- // size 1 to create sorted subarrays of size 2, then merge subarrays 
- // of size 2 to create sorted subarrays of size 4, and so on. 
- //for (curr_size=1; curr_size<=v.length-1; curr_size = 2*curr_size) 
- //{ 
-     // Pick starting point of different subarrays of current size 
-     for (left_startX=0; left_startX<v.length-1; left_startX += 2*curr_sizeX) 
-     { 
-         // Find ending point of left subarray. mid+1 is starting  
-         // point of right 
-         var mid = min(left_startX + curr_sizeX - 1, v.length-1); 
+        curr_sizeX = 2*curr_sizeX;
+        curr_sizeY = 2*curr_sizeY;
 
-         var right_endX = min(left_startX + 2*curr_sizeX - 1, v.length-1); 
-
-         // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end] 
-         merge(v, left_startX, mid, right_endX); 
-
-     } 
-      for (left_startY=0; left_startY<s.length-1; left_startY += 2*curr_sizeY) 
-      { 
-          // Find ending point of left subarray. mid+1 is starting  
-          // point of right 
-          var mid = min(left_startY + curr_sizeY - 1, s.length-1); 
-
-          var right_end = min(left_startY + 2*curr_sizeY - 1, s.length-1); 
-
-          // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end] 
-          merge(s, left_startY, mid, right_end); 
-      } 
-     curr_sizeX = 2*curr_sizeX;
-     curr_sizeY = 2*curr_sizeY;
-
-     for(var m = 0; m < ponto.getArrayXTam(); m++){//for para animação
-        ctx.beginPath();
-        ctx.moveTo(v[m],s[m]);
-        ctx.lineTo(v[m],200);
-        ctx.stroke();  
-    }
-    var contDois = 0;
-    for(var i = 0; i < v.length; i++){//checagem para ver se o vetor está ordenado
-        if(v[i] == ponto.getValCopiaX(i) && s[i] == ponto.getValCopiaY(i)){
-            contDois++; 
-        }
-    }
-
-    if(contUm == contDois){//caso o vetor esteja ordenado, pinta ele de vermelho e para de executar a função
-        ctx.clearRect(0, 0, 200, 200);
-        for(var m = 0; m < ponto.getArrayXTam(); m++){
+        for(var m = 0; m < ponto.getArrayXTam(); m++){//For para animação
             ctx.beginPath();
             ctx.moveTo(v[m],s[m]);
             ctx.lineTo(v[m],200);
-            ctx.strokeStyle = "red";
-            ctx.stroke();  
+            ctx.stroke();
+            
         }
-        clearInterval(refreshIntervalId);
-    }
-    ctx.font = "10px Arial";
-    ctx.fillText("MergeSort",150,10); 
 
-} 
+        var contDois = 0;
+        for(var i = 0; i < v.length; i++){//Checagem para ver se o vetor está ordenado
+            if(v[i] == ponto.getValCopiaX(i) && s[i] == ponto.getValCopiaY(i)){
+                contDois++; 
 
-    render(){
+            }
+
+        }
+
+        if(contUm == contDois){//Caso o vetor esteja ordenado, pinta ele de vermelho e para de executar a função
+            ctx.clearRect(0, 0, 200, 200);
+            for(var m = 0; m < ponto.getArrayXTam(); m++){
+                ctx.beginPath();
+                ctx.moveTo(v[m],s[m]);
+                ctx.lineTo(v[m],200);
+                ctx.strokeStyle = "red";
+                ctx.stroke();  
+
+            }
+            clearInterval(refreshIntervalId);
+
+        }
+        ctx.font = "10px Arial";
+        ctx.fillText("MergeSort",150,10); 
+
+    } 
+
+    render(){//Função render do React, obtendo o que será renderizado na tela pelo classe.
         return(
             <div>
                 <button id = 'iniciaNove' onClick = {start}>Iniciar</button>
@@ -183,12 +169,15 @@ export default class CanvasNove extends React.Component{
                 <button id = 'continuaNove' onClick = {keep}>Continuar</button>
                 <canvas  id = 'canvasNove' ref={ canvasAnim => this.canvasAnim = canvasAnim}> </canvas>
             </div>
+
         )
+
     }
+
 }
 
-var cd = new CanvasNove();
-function start() {
+var cd = new CanvasNove();//Declaração do objeto de tipo Canvas
+function start() {//Função de iniciar(chamada pelo botão)
     clearInterval(refreshIntervalId);
     cd.comeca();
     cd.mergeSort();
@@ -197,12 +186,12 @@ function start() {
     flag = true;
 
 }
-function para() {
+function para() {//Função de parar(chamada pelo botão)
     clearInterval(refreshIntervalId);
     flag = false;
 
 }
-function keep(){
+function keep(){//Função de continuar(chamada pelo botão)
     if(flag == false){
        cd.continua();
        flag = true;
@@ -211,59 +200,58 @@ function keep(){
     
 }
 
-function merge(arr, l, m, r) 
-{ 
-  var i, j, k; 
-  var n1 = m - l + 1; 
-  var n2 =  r - m; 
+function merge(arr, l, m, r) { 
+    var i, j, k; 
+    var n1 = m - l + 1; 
+    var n2 =  r - m; 
 
-  /* create temp arrays */
-  var L = []; 
-  var R = []; 
+    //Cria arrays temporários 
+    var L = []; 
+    var R = []; 
 
-  /* Copy data to temp arrays L[] and R[] */
-  for (i = 0; i < n1; i++) 
-      L[i] = arr[l + i]; 
-  for (j = 0; j < n2; j++) 
-      R[j] = arr[m + 1+ j]; 
+    //Copia os dados paras os arrays temporários L[] e R[]
+    for (i = 0; i < n1; i++) 
+        L[i] = arr[l + i]; 
+    for (j = 0; j < n2; j++) 
+        R[j] = arr[m + 1+ j]; 
 
-  /* Merge the temp arrays back into arr[l..r]*/
-  i = 0; 
-  j = 0; 
-  k = l; 
-  while (i < n1 && j < n2) 
-  { 
-      if (L[i] <= R[j]) 
-      { 
-          arr[k] = L[i]; 
-          i++; 
-      } 
-      else
-      { 
-          arr[k] = R[j]; 
-          j++; 
-      } 
-      k++; 
-  } 
+    //Junta os arrays temporários de volta no array principal
+    i = 0; 
+    j = 0; 
+    k = l; 
+    while (i < n1 && j < n2) { 
+        if (L[i] <= R[j]) { 
+            arr[k] = L[i]; 
+            i++; 
+        } 
+        else{ 
+            arr[k] = R[j]; 
+            j++; 
 
-  /* Copy the remaining elements of L[], if there are any */
-  while (i < n1) 
-  { 
+        } 
+        k++;
+
+    } 
+
+  //Copia os elementos restantes de L[], se houver algum
+    while (i < n1) { 
       arr[k] = L[i]; 
       i++; 
       k++; 
-  } 
+    
+    } 
 
-  /* Copy the remaining elements of R[], if there are any */
-  while (j < n2) 
-  { 
+  //Copia os elementos restantes de R[], se houver algum
+    while (j < n2) { 
       arr[k] = R[j]; 
       j++; 
       k++; 
-  } 
+
+    } 
+
 } 
 
-function min(x, y) 
-{ 
-return (x<y)? x :y; 
+function min(x, y) { 
+    return (x<y)? x :y; 
+
 } 
