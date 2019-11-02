@@ -52,7 +52,7 @@ export default class CanvasNove extends React.Component{
         this.canvasAnim.height = canvasHeight;
 
         ctx.font = "10px Arial";
-        ctx.fillText("MergeSort",2,10);
+        ctx.fillText("MergeSort",150,10);
 
     }
 
@@ -170,12 +170,10 @@ export default class CanvasNove extends React.Component{
         }
         clearInterval(refreshIntervalId);
     }
- //} 
+    ctx.font = "10px Arial";
+    ctx.fillText("MergeSort",150,10); 
+
 } 
-
-/* Function to merge the two haves arr[l..m] and arr[m+1..r] of array arr[] */
-
-
 
     render(){
         return(

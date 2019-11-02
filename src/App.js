@@ -28,7 +28,7 @@ function App() {
         <CanvasNove />
         <CanvasDez />
         <p id='pelements'>Digite a quantidade de elementos:</p>
-        <p id='pintervalo'>Digite o intervalo entre cada animação(1000 = 1 segundo):</p>
+        <p id='pintervalo'>Digite o intervalo entre cada animação(1000 = 1s):</p>
         <p id='pCarol'> Nome: Carolina Costa - RA: 22.217.011-0</p>
         <p id='pKayke'> Nome: Kayke Bonafé     - RA: 22.217.003-7</p>
         <p id='pYoussef'> Nome: Youssef Khatib   - RA: 22.217.034-2</p>

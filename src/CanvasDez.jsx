@@ -52,7 +52,7 @@ export default class CanvasDez extends React.Component{
         this.canvasAnim.height = canvasHeight;
 
         ctx.font = "10px Arial";
-        ctx.fillText("InsertionSort",2,10);
+        ctx.fillText("InsertionSort",141,10);
 
     }
 
@@ -68,8 +68,7 @@ export default class CanvasDez extends React.Component{
     }
 
     continua(){
-        this.selectionSort();
-        refreshIntervalId = setInterval(this.selectionSort,intervalo);
+        refreshIntervalId = setInterval(this.insertionSort,intervalo);
 
     }
 
@@ -143,6 +142,9 @@ export default class CanvasDez extends React.Component{
             }
             clearInterval(refreshIntervalId);
         }
+        ctx.font = "10px Arial";
+        ctx.fillText("InsertionSort",141,10);
+
     }
     render(){
         return(

@@ -23,13 +23,13 @@
 #buttonCont {
   position:absolute;
   padding: 1px 2px;
-  left:53.7%;
+  left:63.7%;
   top:0.4%
 }
 #buttonPara {
   position:absolute;
   padding: 1px 10px;
-  left:49.7%;
+  left:59.7%;
   top:0.4%
 }
 #input {
@@ -40,41 +40,41 @@
 #buttonInicia {
   position:absolute;
   padding: 1px 10px;
-  left:45.5%;
+  left:55.5%;
   top:0.4%
   
 }
 #Canvas {
   position:absolute;
-  left:45%;
+  left:55%;
   top:5%
 
 }
 #buttonContDois {
   position:absolute;
   padding: 1px 2px;
-  left:68.7%;
+  left:78.7%;
   top:0.4%
 
 }
 #buttonParaDois {
   position:absolute;
   padding: 1px 10px;
-  left:64.7%;
+  left:74.7%;
   top:0.4%
 
 }
 #buttonIniciaDois {
   position:absolute;
   padding: 1px 10px;
-  left:60.7%;
+  left:70.7%;
   top:0.4%
 
 }
 
 #CanvasDois{
   position:absolute;
-  left:60%;
+  left:70%;
   top:5%
 
 }
@@ -101,7 +101,7 @@
 
 #canvasTres{
   position:absolute;
-  left:75%;
+  left:85%;
   top:5%
 
 }
@@ -109,7 +109,7 @@
 #iniciaTres{
   position:absolute;
   padding: 1px 10px;
-  left:75.5%;
+  left:85.5%;
   top:0.4%
 
 }
@@ -117,7 +117,7 @@
 #paraTres{
   position:absolute;
   padding: 1px 10px;
-  left:79.7%;
+  left:89.7%;
   top:0.4%
 
 }
@@ -125,14 +125,14 @@
 #continuaTres{
   position:absolute;
   padding: 1px 2px;
-  left:83.7%;
+  left:93.7%;
   top:0.4%
 
 }
 
 #canvasQuatro{
   position:absolute;
-  left:30%;
+  left:40%;
   top:5%
 
 }
@@ -140,7 +140,7 @@
 #iniciaQuatro{
   position:absolute;
   padding: 1px 10px;
-  left:30.5%;
+  left:40.5%;
   top:0.4%
 
 }
@@ -148,7 +148,7 @@
 #paraQuatro{
   position:absolute;
   padding: 1px 10px;
-  left:34.7%;
+  left:44.7%;
   top:0.4%
 
 }
@@ -156,13 +156,13 @@
 #continuaQuatro{
   position:absolute;
   padding: 1px 2px;
-  left:38.6%;
+  left:48.6%;
   top:0.4%
 
 }
 #canvasCinco{
   position:absolute;
-  left:30%;
+  left:40%;
   top:40.6%
 
 }
@@ -170,7 +170,7 @@
 #iniciaCinco{
   position:absolute;
   padding: 1px 10px;
-  left:30.5%;
+  left:40.5%;
   top:36%
 
 }
@@ -178,7 +178,7 @@
 #paraCinco{
   position:absolute;
   padding: 1px 10px;
-  left:34.7%;
+  left:44.7%;
   top:36%
 
 }
@@ -186,14 +186,14 @@
 #continuaCinco{
   position:absolute;
   padding: 1px 2px;
-  left:38.7%;
+  left:48.7%;
   top:36%
 
 }
 
 #canvasSeis{
   position:absolute;
-  left:45%;
+  left:55%;
   top:40.6%
 
 }
@@ -201,7 +201,7 @@
 #iniciaSeis{
   position:absolute;
   padding: 1px 10px;
-  left:45.5%;
+  left:55.5%;
   top:36%
 
 }
@@ -209,7 +209,7 @@
 #paraSeis{
   position:absolute;
   padding: 1px 10px;
-  left:49.7%;
+  left:59.7%;
   top:36%
 
 }
@@ -217,13 +217,13 @@
 #continuaSeis{
   position:absolute;
   padding: 1px 2px;
-  left:53.7%;
+  left:63.7%;
   top:36%
 }
 
 #canvasSete{
   position:absolute;
-  left:60%;
+  left:70%;
   top:40.6%
 
 }
@@ -231,7 +231,7 @@
 #iniciaSete{
   position:absolute;
   padding: 1px 10px;
-  left:60.5%;
+  left:70.5%;
   top:36%
 
 }
@@ -239,7 +239,7 @@
 #paraSete{
   position:absolute;
   padding: 1px 10px;
-  left:64.7%;
+  left:74.7%;
   top:36%
 
 }
@@ -247,14 +247,14 @@
 #continuaSete{
   position:absolute;
   padding: 1px 2px;
-  left:68.7%;
+  left:78.7%;
   top:36%
 
 }
 
 #canvasOito{
   position:absolute;
-  left:75%;
+  left:85%;
   top:40.6%
 
 }
@@ -262,7 +262,7 @@
 #iniciaOito{
   position:absolute;
   padding: 1px 10px;
-  left:75.5%;
+  left:85.5%;
   top:36%
 
 }
@@ -270,7 +270,7 @@
 #paraOito{
   position:absolute;
   padding: 1px 10px;
-  left:79.7%;
+  left:89.7%;
   top:36%
 
 }
@@ -278,7 +278,7 @@
 #continuaOito{
   position:absolute;
   padding: 1px 2px;
-  left:83.7%;
+  left:93.7%;
   top:36%
 
 }
@@ -320,7 +320,7 @@
 
 #canvasNove{
   position:absolute;
-  left:15%;
+  left:25%;
   top:40.6%
 
 }
@@ -328,7 +328,7 @@
 #iniciaNove{
   position:absolute;
   padding: 1px 10px;
-  left:15.5%;
+  left:25.5%;
   top:36%
 
 }
@@ -336,7 +336,7 @@
 #paraNove{
   position:absolute;
   padding: 1px 10px;
-  left:19.7%;
+  left:29.7%;
   top:36%
 
 }
@@ -344,14 +344,14 @@
 #continuaNove{
   position:absolute;
   padding: 1px 2px;
-  left:23.7%;
+  left:33.7%;
   top:36%
 
 }
 
 #canvasDez{
   position:absolute;
-  left:0%;
+  left:10%;
   top:40.6%
 
 }
@@ -359,7 +359,7 @@
 #iniciaDez{
   position:absolute;
   padding: 1px 10px;
-  left:0.5%;
+  left:10.5%;
   top:36%
 
 }
@@ -367,7 +367,7 @@
 #paraDez{
   position:absolute;
   padding: 1px 10px;
-  left:4.7%;
+  left:14.7%;
   top:36%
 
 }
@@ -375,7 +375,7 @@
 #continuaDez{
   position:absolute;
   padding: 1px 2px;
-  left:8.7%;
+  left:18.7%;
   top:36%
 
 }
