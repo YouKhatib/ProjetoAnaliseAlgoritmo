@@ -13,13 +13,13 @@ var cntd;
 var intervalo;
 var a = [];
 var b = [];
-var x;
+var x = 1;
 export default class CanvasDez extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             arrayX: [],
-            arrayY: [],
+            arrayY: []
             
         }
         this.handleChange = this.handleChange.bind(this);
@@ -74,6 +74,7 @@ export default class CanvasDez extends React.Component{
     }
 
     inicializa(){
+        x = 1;
         comeco = 1;
         aux = 0;
         a = [];
@@ -100,8 +101,8 @@ export default class CanvasDez extends React.Component{
 
     
     insertionSort() {
-        var x, d, t;
-        //for (x = 1; x <= a.length-1; x++){
+        ctx.clearRect(0, 0, 200, 200);
+        var d, t, e, u;
             d = x;
             while (d >0 && a[d] < a[d-1]){
                 t = a[d];
@@ -109,9 +110,39 @@ export default class CanvasDez extends React.Component{
                 a[d-1] = t;
                 d--;
             }
-            console.log(a);
+            e = x;
+            while (e >0 && b[e] < b[e-1]){
+                u = b[e];
+                b[e] = b[e-1];
+                b[e-1] = u;
+                e--;
+            }
             x++;
-        //}
+             
+            for(var m = 0; m < ponto.getArrayXTam(); m++){//for para animação
+                ctx.beginPath();
+                ctx.moveTo(a[m],b[m]);
+                ctx.lineTo(a[m],200);
+                ctx.stroke();  
+            }
+            var contDois = 0;
+        for(var i = 0; i < a.length; i++){//checagem para ver se o vetor está ordenado
+            if(a[i] == ponto.getValCopiaX(i) && b[i] == ponto.getValCopiaY(i)){
+                contDois++; 
+            }
+        }
+
+        if(contUm == contDois){//caso o vetor esteja ordenado, pinta ele de vermelho e para de executar a função
+            ctx.clearRect(0, 0, 200, 200);
+            for(var m = 0; m < ponto.getArrayXTam(); m++){
+                ctx.beginPath();
+                ctx.moveTo(a[m],b[m]);
+                ctx.lineTo(a[m],200);
+                ctx.strokeStyle = "red";
+                ctx.stroke();  
+            }
+            clearInterval(refreshIntervalId);
+        }
     }
     render(){
         return(
@@ -129,7 +160,7 @@ var cd = new CanvasDez();
 function start() {
     clearInterval(refreshIntervalId);
     cd.comeca();
-    var refreshIntervalId = setInterval(cd.insertionSort,intervalo);
+    refreshIntervalId = setInterval(cd.insertionSort,intervalo);
     flag = true;
 
 }
